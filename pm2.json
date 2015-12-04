@@ -1,0 +1,14 @@
+{
+  "apps": [{
+    "name": "thinkjs-dome-es6",
+    "script": "www/production.js",
+    "cwd": "/Users/zhangqinghong/study/thinkjs/thinkjs-dome-es6",
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}

@@ -1,0 +1,119 @@
+/* 定义变量 */
+@left-width: 260px;     // 左边栏的宽度
+@avatar-size: 140px;    // 正方形头像的size
+
+/* 公共样式 */
+html, body{
+    height: 100%;
+    font-size: 14px;
+}
+
+* {
+    padding: 0;
+    margin: 0;    
+}
+
+.clearfix:after {
+  content: " ";
+  display: block;
+  clear: both;
+  height: 0;
+}
+.clearfix {
+  zoom: 1;
+}
+
+
+#wrapper {
+    height: 100%;
+}
+
+.container {
+    position: relative;
+    height: 100%;
+    max-width: 1024px;
+    min-width: 800px;
+    & > div {
+        // border-right: 1px solid red;
+    }
+
+    .left {
+        width: @left-width;
+        height: 100%;
+        position: absolute;
+        background-color: #346D82;
+        color: #FFF;
+
+        .avatar {
+            margin-top: 30px;
+            a {
+                display: block;
+                height: @avatar-size;
+                width: @avatar-size;
+                background: url("/static/img/avatar.jpg") no-repeat;
+                background-size: @avatar-size @avatar-size;  
+                border-radius: 50%;
+                margin: 0 auto;
+            }
+        }
+
+        .user-name {
+            margin-top: 20px;
+            a {
+                display: block;
+                text-decoration: none;
+                color: #FFF;
+                text-shadow: 0 1px #333;
+                text-align: center;
+            }
+        }
+
+        .user-desc {
+            margin-top: 20px;
+            text-align: center;
+            color: #E6E3E3;
+        }
+
+        .main-nav {
+            margin-top: 60px;
+            & > ul {
+                margin-left: 60px;
+            }
+            & li {
+                margin: 20px 0;
+                a {
+                    text-decoration: none;
+                    color: #FFF;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .middle {
+        height: 100%;
+        margin-left: @left-width;
+        padding: 0 20px;
+        position: absolute;
+        left: 0;
+        right: 0;
+
+        .article {
+            margin: 20px 0;
+            border-bottom: 1px solid #ddd;
+            .title {
+                height: 50px;
+                h1 {
+                    float: left
+                }
+                a {
+                    text-decoration: none;
+                    color: #000;
+                }
+                .create-time {
+                    float: right;
+                }
+            }
+        }
+    }
+}
