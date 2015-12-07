@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import ArticleList from "../components/ArticleList";
+import { ACTION_TYPE, articleList } from "../../redux/actions";
 
 class First extends Component {
+
+    componentDidMount(){
+        console.log("componentDidMount by First");
+        const { dispatch } = this.props;
+        dispatch(articleList());
+    }
+
     render(){
         const { articleList } = this.props;
         return (
@@ -14,31 +22,10 @@ class First extends Component {
     }
 }
 
-let articlelistMock = [
-    {
-        id: 1,
-        title: "title1",
-        contents: "内容",
-        date: "2015-11-11"
-    },
-    { 
-        id: 2,
-        title: "title2dd",
-        contents: "内容21",
-        date: "2015-11-11"
-    },
-    {
-        id: 3,
-        title: "title3",
-        contents: "内容3",
-        date: "2015-11-11"
-    }
-];
-
 function getArticleList(articleList = [], filter = ""){
     switch(filter){
-        case "mock":
-            return articlelistMock;
+        case "articleList":
+            return articleList;
         default:
             return articleList;
     }
@@ -46,7 +33,7 @@ function getArticleList(articleList = [], filter = ""){
 
 function select(state) {
     return {
-        articleList: getArticleList(state.articleList, "mock")
+        articleList: getArticleList(state.articleList, state.filter)
     };
 }
 

@@ -9,7 +9,7 @@ export default class Article extends Component {
                     <h1><a href="/">{this.props.title}</a></h1>
                     <span className="create-time">{this.props.date}</span>
                 </div>
-                <div>{this.props.contents}</div>
+                <div className="content">{this.props.contents}</div>
             </article>
         );
     }

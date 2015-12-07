@@ -100,3 +100,8 @@ body {
 .container .middle .article .title .create-time {
   float: right;
 }
+.container .middle .article .content {
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}

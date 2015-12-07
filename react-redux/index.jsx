@@ -4,10 +4,10 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import routes from './react/routes' 
-import reducers from './redux/reducers';
+import store from './redux/store';
 
 render(
-    <Provider store={ createStore(reducers) }>
+    <Provider store={ store() }>
         {routes}
     </Provider>,
     document.getElementById("wrapper")
