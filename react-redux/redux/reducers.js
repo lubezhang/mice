@@ -11,8 +11,18 @@ function articleList(articleList = [], action) {
     }
 }
 
+function article(article = {}, action) {
+    switch (action.type) {
+        case ACTION_TYPE.ARTICLE:
+            return Object.assign({}, action.article);
+        default: 
+            return article;
+    }
+}
+
 export default combineReducers({
-    articleList
+    articleList,
+    article
 })
 
 // export default function toApp(state, action){

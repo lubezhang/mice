@@ -3,9 +3,13 @@
 import Base from './base.js';
 
 export default class extends Base {
-  __before(){
-    this.articleModel = this.model("article");
+  init(http){
+    super.init(http);
+    this.model = this.model("article");
   }
+  // __before(){
+  //   this.model = this.model("article");
+  // }
 
   // __after(){
   //   console.log("__after");
@@ -19,6 +23,9 @@ export default class extends Base {
     return this.display();
   }
 
+  /**
+   * 添加文章
+   */
   async addAction(){
     // let username = this.get("username");
     // if(username){
@@ -34,13 +41,27 @@ export default class extends Base {
       "contents": contents
     }
 
-    let articleId = await this.articleModel.add(article);
+    let articleId = await this.model.add(article);
     return this.success(articleId);
   }
 
+  /**
+   * 文章列表
+   * @return {[type]} [description]
+   */
   async listAction(){
-    let articleList = await this.articleModel.page(this.get("page"), 10).countSelect();
+    let articleList = await this.model.page(this.get("page"), 10).countSelect();
     return this.success(articleList);
+  }
+
+  /**
+   * 获取文章详细内容
+   * @return {[type]} [description]
+   */
+  async cAction(){
+    let id = this.param("id");
+    let artilet = await this.model.where({"_id": id}).find();
+    return this.success(artilet);
   }
 
 }

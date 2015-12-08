@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Router, Route, Link } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 
 import App from "./app";
-import First from "./layout/first";
-import Series from "./layout/series";
-import Archives from "./layout/archives";
-import Tags from "./layout/tags";
-import About from "./layout/about";
+// import Articles from "./layout/articles";
+// import Series from "./layout/series";
+// import Archives from "./layout/archives";
+// import Tags from "./layout/tags";
+// import About from "./layout/about";
+
+import { Left, Articles, Article, Series, Archives, Tags, About } from "./layout"
 
 
 // var NotFound = React.createClass({
@@ -27,11 +30,12 @@ import About from "./layout/about";
     </Router>
  *   
  */
-
+const history = createBrowserHistory();
 var routes = (
-    <Router >
+    <Router>
         <Route component={App}> 
-            <Route path="/" component={First} />
+            <Route path="/" component={Articles} />
+            <Route path="article/:id" component={Article} />
             <Route path="series" component={Series} />
             <Route path="archives" component={Archives} />
             <Route path="tags" component={Tags} />

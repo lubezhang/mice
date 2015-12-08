@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import ArticleList from "../components/ArticleList";
-import { ACTION_TYPE, articleList } from "../../redux/actions";
+import { ACTION_TYPE, ACTION } from "../../redux/actions";
 
-class First extends Component {
+class Articles extends Component {
 
-    componentDidMount(){
-        console.log("componentDidMount by First");
+    componentWillMount(){
         const { dispatch } = this.props;
-        dispatch(articleList());
+        dispatch(ACTION.articleList());
     }
 
     render(){
@@ -24,17 +23,15 @@ class First extends Component {
 
 function getArticleList(articleList = [], filter = ""){
     switch(filter){
-        case "articleList":
-            return articleList;
         default:
             return articleList;
     }
 }
 
-function select(state) {
+function select(state, action) {
     return {
         articleList: getArticleList(state.articleList, state.filter)
     };
 }
 
-export default connect(select)(First);
+export default connect(select)(Articles);

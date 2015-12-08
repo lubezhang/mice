@@ -16,7 +16,6 @@ export default class ArticleList extends Component {
     // }
 
     render(){
-        // console.log("render");
         return (
             <div>
                 {this.props.articleList.map((article, index) => 

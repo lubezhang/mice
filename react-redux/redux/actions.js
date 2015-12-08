@@ -1,24 +1,53 @@
 import fetch from "isomorphic-fetch";
 
+const ACTION_URL = {
+    article_list: "/article/list",
+    article: "/article/c"
+}
+
 const ACTION_TYPE = {
     ARTICLE_LIST: "article_list",
-    ARTICLE_SHOW: "article_show",
+    ARTICLE: "article",
     ARTICLE_ADD: "article_add"
 };
-
-function fecthPosts(){
+/**
+ * 向后台发起获取数据的请求
+ * @param  {[type]} actionType [description]
+ * @param  {[type]} params     [description]
+ * @return {[type]}            [description]
+ */
+function fecthPosts(actionType, params){
+    let paramList = [];
+    for(var key in params){
+        paramList.push(key+"="+params[key]);
+    }
     return dispatch => {
-        fetch("/article/list")
+        fetch(ACTION_URL[actionType], { method: "POST", body:paramList.join("&") })
             .then(response => response.json())
-            .then(json => dispatch(receivePosts(json.data)))
+            .then(json => dispatch(receivePosts(actionType, json)))
     }
 }
 
-function receivePosts(json){   
-    return {
-        type: ACTION_TYPE.ARTICLE_LIST,
-        articleList: json.data
+/**
+ * 根据actionType组装state
+ * @param  {[type]} actionType [description]
+ * @param  {[type]} json       [description]
+ * @return {[type]}            [description]
+ */
+function receivePosts(actionType, json){   
+    var state = {
+        type: actionType
     }
+    switch(actionType) {
+        case ACTION_TYPE.ARTICLE_LIST:
+            state["articleList"] = json.data.data;
+            break;
+        case ACTION_TYPE.ARTICLE:
+            state["article"] = json.data;
+            break;
+
+    }
+    return state;
 }
 
 function articleAdd(article){
@@ -27,12 +56,23 @@ function articleAdd(article){
 
 function articleList() {
     return (dispatch, getState) => {
-        return dispatch(fecthPosts());
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_LIST));
     }
+}
+
+function article(id) {
+    return (dispatch, getState) => {
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE, {id:id}));
+    }
+}
+
+const ACTION = {
+    articleAdd,
+    articleList,
+    article
 }
 
 export {
     ACTION_TYPE,
-    articleAdd,
-    articleList
+    ACTION
 }
