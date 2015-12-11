@@ -3,11 +3,12 @@ import { Link } from 'react-router';
 
 export default class Article extends Component {
     render () {
+        let content = this.props.contents;
         return (
             <article>
-                文章内容展示组件
                 <h1>{this.props.title}</h1>
-                <h3>{this.props.contents}</h3>
+                <h3 dangerouslySetInnerHTML={{__html: content}}></h3>
+
             </article>
         );
     }

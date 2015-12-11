@@ -1,6 +1,7 @@
 'use strict';
 
 import Base from './base.js';
+import { markdown } from "../utils/markdown"
 
 export default class extends Base {
   init(http){
@@ -60,8 +61,9 @@ export default class extends Base {
    */
   async cAction(){
     let id = this.param("id");
-    let artilet = await this.model.where({"_id": id}).find();
-    return this.success(artilet);
+    let article = await this.model.where({"_id": id}).find();
+    article.contents = markdown(article.contents);
+    return this.success(article);
   }
 
 }

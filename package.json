@@ -22,6 +22,8 @@
     "babel-core": "^5.8.34",
     "babel-loader": "^5.4.0",
     "history": "^1.13.1",
+    "marked": "^0.3.5",
+    "moment": "^2.10.6",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
