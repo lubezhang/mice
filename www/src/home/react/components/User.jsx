@@ -9,7 +9,7 @@ export default class User extends Component {
                     <Link to="/"></Link>
                 </div>
                 <div className="user-name">
-                    <h1><Link to="/">用户名称</Link></h1>
+                    <h1><Link to="/">用户名称dd</Link></h1>
                 </div>
                 <div className="user-desc">用户的描述</div>
             </div>
