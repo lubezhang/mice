@@ -1,21 +1,24 @@
 'use strict';
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+var staticPath = path.join(__dirname, "../www/static/");
 
 module.exports = function (ops){
     var config = {
         // debug: true,
         entry: {
-            app: './www/src/home/index.jsx',
-            admin: './www/src/admin/admin.jsx'
+            app: './www/src/view/home/index.jsx',
+            admin: './www/src/view/admin/admin.jsx'
         },
         output: {
-            path: path.join(__dirname, "../www/static/view"),
+            path: staticPath + "view",
             filename: '[name].bundle.js',
             chunkFilename: '[hash].[name].bundle.js'
         },
         resolve: {
-          extensions: ['', '.js', '.jsx']
+          extensions: ['', '.js', '.jsx', '.less']
         },
         module: {
             loaders: [
@@ -28,6 +31,11 @@ module.exports = function (ops){
                     test: /\.js$/,
                     loader: 'babel',
                     exclude: /node_modules/
+                },
+                {
+                    test:/\.sass$/, 
+                    // incldue: path.resolve('www/src/sass'),
+                    loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
                 }
             ]
         },
@@ -37,6 +45,7 @@ module.exports = function (ops){
                     warnings: false
                 }
             }),
+            new ExtractTextPlugin("../css/[name].css"),
             new webpack.optimize.CommonsChunkPlugin( 'common.js')
         ]
     };

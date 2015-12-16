@@ -9,12 +9,12 @@ module.exports = function (ops){
             app:[
                 'webpack-dev-server/client?http://127.0.0.1:3000', 
                 'webpack/hot/only-dev-server',
-                './www/src/home/index.jsx',
+                './www/src/view/home/index.jsx',
             ],
             admin: [
                 'webpack-dev-server/client?http://127.0.0.1:3000', 
                 'webpack/hot/only-dev-server',
-                './www/src/admin/admin.jsx'
+                './www/src/view/admin/admin.jsx'
             ]
         },
         output: {
@@ -24,7 +24,7 @@ module.exports = function (ops){
             chunkFilename: '[hash].[name].bundle.js'
         },
         resolve: {
-          extensions: ['', '.js', '.jsx']
+            extensions: ['', '.js', '.jsx', '.sass']
         },
         module: {
             loaders: [
@@ -37,6 +37,10 @@ module.exports = function (ops){
                     test: /\.js$/,
                     loader: 'react-hot!babel',
                     exclude: /node_modules/
+                },
+                {
+                    test:/\.sass$/, 
+                    loader: "style!css!sass"
                 }
             ]
         },
