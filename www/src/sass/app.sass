@@ -1,6 +1,6 @@
 /* 定义变量 */
-@left-width: 260px;     // 左边栏的宽度
-@avatar-size: 140px;    // 正方形头像的size
+$left-width: 260px;     // 左边栏的宽度
+$avatar-size: 140px;    // 正方形头像的size
 
 /* 公共样式 */
 html, body{
@@ -38,7 +38,7 @@ html, body{
     }
 
     .left {
-        width: @left-width;
+        width: $left-width;
         height: 100%;
         position: absolute;
         background-color: #346D82;
@@ -48,10 +48,10 @@ html, body{
             margin-top: 30px;
             a {
                 display: block;
-                height: @avatar-size;
-                width: @avatar-size;
-                background: url("/static/img/avatar.jpg") no-repeat;
-                background-size: @avatar-size @avatar-size;  
+                height: $avatar-size;
+                width: $avatar-size;
+                background: url("/stati/img/avatar.jpg") no-repeat;
+                background-size: $avatar-size $avatar-size;  
                 border-radius: 50%;
                 margin: 0 auto;
             }
@@ -92,7 +92,7 @@ html, body{
 
     .middle {
         height: 100%;
-        margin-left: @left-width;
+        margin-left: $left-width;
         padding: 0 20px;
         position: absolute;
         left: 0;
