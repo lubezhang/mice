@@ -5,23 +5,23 @@ var path = require('path');
 module.exports = function (ops){
     var config = {
         // debug: true,
-        // entry: {
-        //     a: 'webpack-dev-server/client?http://127.0.0.1:3000', 
-        //     b: 'webpack/hot/only-dev-server',
-        //     app: './www/src/home/index.jsx',
-        //     admin: './www/src/admin/admin.jsx'
-        // },
-        entry: [
-            'webpack-dev-server/client?http://127.0.0.1:3000', 
-            'webpack/hot/only-dev-server',
-            './www/src/home/index.jsx'
-        ],
+        entry: {
+            app:[
+                'webpack-dev-server/client?http://127.0.0.1:3000', 
+                'webpack/hot/only-dev-server',
+                './www/src/home/index.jsx',
+            ],
+            admin: [
+                'webpack-dev-server/client?http://127.0.0.1:3000', 
+                'webpack/hot/only-dev-server',
+                './www/src/admin/admin.jsx'
+            ]
+        },
         output: {
-            path: path.join(__dirname, "www/static/js"),
-            publicPath: "http://127.0.0.1:3000/www/static/js/",
-            filename: 'app.bundle.js'
-            // ,
-            // chunkFilename: '[hash].[name].bundle.js'
+            path: path.join(__dirname, "www/static/view"),
+            publicPath: "http://127.0.0.1:3000/www/static/view/",
+            filename: '[name].bundle.js',
+            chunkFilename: '[hash].[name].bundle.js'
         },
         resolve: {
           extensions: ['', '.js', '.jsx']
@@ -41,9 +41,8 @@ module.exports = function (ops){
             ]
         },
         plugins:[
-            new webpack.HotModuleReplacementPlugin()
-            // ,
-            // new webpack.optimize.CommonsChunkPlugin( 'common.js')
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.optimize.CommonsChunkPlugin( 'common.js')
         ],
         devtool: 'source-map'
     };
