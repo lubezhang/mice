@@ -6,20 +6,11 @@ module.exports = function (ops){
     var config = {
         // debug: true,
         entry: {
-            app:[
-                'webpack-dev-server/client?http://127.0.0.1:3000', 
-                'webpack/hot/only-dev-server',
-                './www/src/home/index.jsx',
-            ],
-            admin: [
-                'webpack-dev-server/client?http://127.0.0.1:3000', 
-                'webpack/hot/only-dev-server',
-                './www/src/admin/admin.jsx'
-            ]
+            app: './www/src/home/index.jsx',
+            admin: './www/src/admin/admin.jsx'
         },
         output: {
-            path: path.join(__dirname, "www/static/view"),
-            publicPath: "http://127.0.0.1:3000/www/static/view/",
+            path: path.join(__dirname, "../www/static/view"),
             filename: '[name].bundle.js',
             chunkFilename: '[hash].[name].bundle.js'
         },
@@ -30,21 +21,24 @@ module.exports = function (ops){
             loaders: [
                 {
                     test: /\.jsx$/,
-                    loader: 'react-hot!babel',
+                    loader: 'babel',
                     exclude: /node_modules/
                 },
                 {
                     test: /\.js$/,
-                    loader: 'react-hot!babel',
+                    loader: 'babel',
                     exclude: /node_modules/
                 }
             ]
         },
         plugins:[
-            new webpack.HotModuleReplacementPlugin(),
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false
+                }
+            }),
             new webpack.optimize.CommonsChunkPlugin( 'common.js')
-        ],
-        devtool: 'source-map'
+        ]
     };
 
     return config;
