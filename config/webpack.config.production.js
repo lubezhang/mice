@@ -2,7 +2,9 @@
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+var srcPath = "./www/src/";
 var staticPath = path.join(__dirname, "../www/static/");
 
 module.exports = function (ops){
@@ -13,7 +15,8 @@ module.exports = function (ops){
             admin: './www/src/view/admin/admin.jsx'
         },
         output: {
-            path: staticPath + "view",
+            path: path.join(__dirname, "../www/static/view/"),
+            publicPath: "/static/view/",
             filename: '[name].bundle.js',
             chunkFilename: '[hash].[name].bundle.js'
         },
@@ -46,7 +49,33 @@ module.exports = function (ops){
                 }
             }),
             new ExtractTextPlugin("../css/[name].css"),
-            new webpack.optimize.CommonsChunkPlugin( 'common.js')
+            new webpack.optimize.CommonsChunkPlugin( 'common.js'),
+            new HtmlWebpackPlugin({
+                template: srcPath + "view/template/index.html",
+                filename: "../../../view/home/index_index.html",
+                inject: true,
+                // chunks: ['app1', "common.js"],
+                excludeChunks: ['admin'],
+                minify: {
+                    removeComments: false,
+                    collapseWhitespace:false,
+                    keepClosingSlash: true,
+                    removeEmptyElements: true
+                }
+            }),
+            new HtmlWebpackPlugin({
+                template: srcPath + "view/template/admin.html",
+                filename: "../../../view/admin/index_index.html",
+                inject: true,
+                // chunks: ['app1', "common.js"],
+                excludeChunks: ['app'],
+                minify: {
+                    removeComments: false,
+                    collapseWhitespace:false,
+                    keepClosingSlash: true,
+                    removeEmptyElements: true
+                }
+            })
         ]
     };
 

@@ -3,4 +3,4 @@ import { render } from "react-dom";
 
 import App from "./react/app";
 
-render (<App />, document.getElementById("contains"))
+render (<App />, document.getElementById("wrapper"))
