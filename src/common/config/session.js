@@ -1,5 +1,5 @@
 export default {
-  type: "db",
+  type: "memory",
   name: "thinkjs", //对应 cookie 的名称
   // path: runtimePrefix + "/session",  // file 类型下缓存文件的目录
   secret: "blog", //Session 对应的 cookie 是否需要加密

@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Link } from 'react-router';
+import React, {Component} from "react";
+import {Link} from 'react-router';
 
 export default class Article extends Component {
-    render () {
+    render() {
         return (
             <article className="article">
                 <div className="title clearfix">
                     <h1>
-                        <Link to={"/article/"+this.props._id}>{this.props.title}</Link>
+                        <Link to={"/article/" + this.props.id}>{this.props.title}</Link>
                     </h1>
                     <span className="create-time">{this.props.date}</span>
                 </div>

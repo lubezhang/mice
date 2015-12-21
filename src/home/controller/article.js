@@ -36,7 +36,7 @@ export default class extends Base {
     //   return this.fail("USERNAME_EMPTY");
     // }
     let title = this.post("title"), contents = this.post("contents");
-    
+
     let article = {
       "title": title,
       "contents": contents
@@ -61,8 +61,8 @@ export default class extends Base {
    */
   async cAction(){
     let id = this.param("id");
-    let article = await this.model.where({"_id": id}).find();
-    article.contents = markdown(article.contents);
+    let article = await this.model.where({"id": id}).find();
+    // article.contents = markdown(article.contents);
     return this.success(article);
   }
 

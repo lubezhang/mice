@@ -4,13 +4,13 @@
  * @type {Object}
  */
 export default {
-  type: 'mongo',
-  host: '10.16.93.35',
-  port: '',
+  type: 'mysql',
+  host: '123.56.230.121',
+  port: '3306',
   name: 'blog',
-  user: '',
-  pwd: '',
-  prefix: 'think_',
+  user: 'root',
+  pwd: 'qwe123',
+  prefix: '',
   encoding: 'utf8',
   nums_per_page: 10,
   log_sql: true,
