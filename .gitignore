@@ -1,3 +1,5 @@
 app
 node_modules
 www/static/
+view/admin/index_index.html
+view/home/index_index.html
