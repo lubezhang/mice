@@ -5,7 +5,7 @@
  */
 export default {
   type: 'mysql',
-  host: '123.56.230.121',
+  host: '127.0.0.1',
   port: '3306',
   name: 'blog',
   user: 'root',
