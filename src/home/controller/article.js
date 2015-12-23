@@ -62,7 +62,7 @@ export default class extends Base {
   async cAction(){
     let id = this.param("id");
     let article = await this.model.where({"id": id}).find();
-    // article.contents = markdown(article.contents);
+    article.content = markdown(article.content);
     return this.success(article);
   }
 

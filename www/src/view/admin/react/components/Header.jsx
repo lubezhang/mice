@@ -9,12 +9,12 @@ export default class Header extends Component {
         <Navbar>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <a href="#">后台</a>
+                    <a href="#/">后台</a>
                 </Navbar.Brand>
             </Navbar.Header>
             <Nav>
                 <NavDropdown eventKey={1} title="内容管理" id="basic-nav-dropdown">
-                    <MenuItem eventKey={1.1} href="#/">文章管理</MenuItem>
+                    <MenuItem eventKey={1.1} href="#/article">文章管理</MenuItem>
                     <MenuItem divider/>
                     <MenuItem eventKey={1.2} disabled>分类管理</MenuItem>
                     <MenuItem eventKey={1.3} href="#/tags">标签管理</MenuItem>

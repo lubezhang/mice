@@ -28,17 +28,19 @@ import { Left, Articles, Article, Series, Archives, Tags, About } from "./layout
             </Route>
         </Route>
     </Router>
- *   
+ *
  */
 const history = createBrowserHistory();
 var routes = (
     <Router>
-        <Route component={App}> 
+        <Route component={App}>
             <Route path="/" component={Articles} />
             <Route path="article/:id" component={Article} />
             <Route path="series" component={Series} />
             <Route path="archives" component={Archives} />
-            <Route path="tags" component={Tags} />
+            <Route path="tags" component={Tags} >
+                <Route path="series" component={Series} />
+            </Route>
             <Route path="about" component={About} />
         </Route>
     </Router>

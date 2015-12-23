@@ -1,7 +1,11 @@
-import Articles from "./Articles";
+import Article from "./Article";
+import ArticleAdd from "./article/ArticleAdd"
+import ArticleList from "./article/ArticleList"
 import Tags from "./Tags";
 
 export {
-    Articles,
+    Article,
+    ArticleAdd,
+    ArticleList,
     Tags
 }

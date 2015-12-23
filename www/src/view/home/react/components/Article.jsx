@@ -11,7 +11,7 @@ export default class Article extends Component {
                     </h1>
                     <span className="create-time">{this.props.date}</span>
                 </div>
-                <div className="content">{this.props.contents}</div>
+                <div className="content">{this.props.content}</div>
             </article>
         );
     }
