@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
-import ArticleList from "./article/ArticleList"
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import ArticleList from "./article/ArticleList";
+import ArticleAdd from "./article/ArticleAdd";
 
-export default class Article extends Component {
+import { ACTION_TYPE, ACTION } from "../../redux/actions";
+import * as ArticleActions from "../../redux/actions";
+
+class Article extends Component {
+    componentWillMount(){
+        // const { dispatch } = this.props;
+        // dispatch(ACTION.funcArticleList());
+    }
+
     render(){
-        let child;
-        if(this.props.children) {
-            child = this.props.children;
-        } else {
-            child = (<ArticleList />);
+        debugger;
+        let child, { actions, articleList } = this.props;
+        switch (this.props.params.method) {
+            case "add":
+                child = (<ArticleAdd articleAdd={actions.funcArticleAdd}/>);
+                break;
+            default:
+                child = (<ArticleList articleList={articleList} actions={actions}/>);
         }
         return (
             <div >
@@ -16,3 +30,27 @@ export default class Article extends Component {
         );
     }
 }
+
+function getArticleList(articleList = {}, filter = ""){
+    switch(filter){
+        default:
+            return articleList;
+    }
+}
+
+function mapStateToProps(state) {
+  return {
+    articleList: state.articleList
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(ArticleActions, dispatch)
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Article);

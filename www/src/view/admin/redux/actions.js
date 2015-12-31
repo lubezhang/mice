@@ -2,6 +2,7 @@ import fetch from "isomorphic-fetch";
 
 const ACTION_URL = {
     article_list: "/article/list",
+    article_add: "/article/add",
     article: "/article/c"
 };
 
@@ -10,6 +11,8 @@ const ACTION_TYPE = {
     ARTICLE: "article",
     ARTICLE_ADD: "article_add"
 };
+
+
 /**
  * 向后台发起获取数据的请求
  * @param  {[type]} actionType [description]
@@ -22,7 +25,7 @@ function fecthPosts(actionType, params){
         paramList.push(key+"="+params[key]);
     }
     return dispatch => {
-        fetch(ACTION_URL[actionType], { method: "POST", body:paramList.join("&") })
+        fetch("/admin"+ACTION_URL[actionType], { method: "POST", body:paramList.join("&") })
             .then(response => response.json())
             .then(json => dispatch(receivePosts(actionType, json)));
     };
@@ -40,8 +43,9 @@ function receivePosts(actionType, json){
     };
     switch(actionType) {
         case ACTION_TYPE.ARTICLE_LIST:
-            state.articleList = json.data.data;
+            state.articleList = json.data;
             break;
+        case ACTION_TYPE.ARTICLE_ADD:
         case ACTION_TYPE.ARTICLE:
             state.article = json.data;
             break;
@@ -50,29 +54,26 @@ function receivePosts(actionType, json){
     return state;
 }
 
-function articleAdd(article){
-    return {type: ACTION_TYPE.ARTICLE_ADD, article};
-}
-
-function articleList() {
+/**
+ * 获取文章列表
+ * @return {[type]} [description]
+ */
+export function funcArticleList() {
     return (dispatch, getState) => {
         return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_LIST));
     };
 }
 
-function article(id) {
+/**
+ * 保存文章
+ * @return {[type]} [description]
+ */
+export function funcArticleAdd(article){
     return (dispatch, getState) => {
-        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE, {id:id}));
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_ADD, article));
     };
 }
 
-const ACTION = {
-    articleAdd,
-    articleList,
-    article
-};
-
 export {
-    ACTION_TYPE,
-    ACTION
+    ACTION_TYPE
 };
