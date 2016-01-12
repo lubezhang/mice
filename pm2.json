@@ -1,9 +1,9 @@
 {
   "apps": [{
-    "name": "thinkjs-dome-es6",
+    "name": "blog",
     "script": "www/production.js",
-    "cwd": "/Users/zhangqinghong/study/thinkjs/thinkjs-dome-es6",
-    "max_memory_restart": "1G",
+    "cwd": "/opt/RRT-blog",
+    "max_memory_restart": "700M",
     "autorestart": true,
     "node_args": [],
     "args": [],
