@@ -3,6 +3,6 @@
  * config
  */
 export default {
-  //key: value
+  port: 80,
   log_request: true //是否打印请求的日志
 };
