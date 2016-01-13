@@ -25,33 +25,14 @@ export default class extends Base {
   }
 
   /**
-   * 添加文章
-   */
-  async addAction(){
-    // let username = this.get("username");
-    // if(username){
-    //   let userId = await this.userModel.add({"username":username, password: "admin999"});
-    //   return this.success(userId);
-    // } else {
-    //   return this.fail("USERNAME_EMPTY");
-    // }
-    let title = this.post("title"), contents = this.post("contents");
-
-    let article = {
-      "title": title,
-      "contents": contents
-    }
-
-    let articleId = await this.model.add(article);
-    return this.success(articleId);
-  }
-
-  /**
    * 文章列表
    * @return {[type]} [description]
    */
   async listAction(){
     let articleList = await this.model.page(this.get("page"), 10).countSelect();
+    articleList.data.map(article => {
+      article.content = article.content.slice(0, 300);
+    });
     return this.success(articleList);
   }
 
