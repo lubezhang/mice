@@ -14,7 +14,6 @@ class Article extends Component {
     }
 
     render(){
-        console.log("****************** render Article ******************")
         let child, { actions, articleList, article } = this.props;
         switch (this.props.params.method) {
             case "add":

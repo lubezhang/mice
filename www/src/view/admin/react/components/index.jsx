@@ -1,5 +1,7 @@
 import Header from "./Header";
+import Table from "./Table";
 
 export {
-    Header
+    Header,
+    Table
 }

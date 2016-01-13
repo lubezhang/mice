@@ -1,6 +1,7 @@
 'use strict';
 
 import Base from './base.js';
+import _ from "lodash";
 // import { markdown } from "../utils/markdown"
 
 export default class extends Base {
@@ -28,13 +29,6 @@ export default class extends Base {
    * 添加文章
    */
   async addAction(){
-    // let username = this.get("username");
-    // if(username){
-    //   let userId = await this.userModel.add({"username":username, password: "admin999"});
-    //   return this.success(userId);
-    // } else {
-    //   return this.fail("USERNAME_EMPTY");
-    // }
     let title = this.post("title"), content = this.post("content");
 
     let article = {
@@ -43,7 +37,12 @@ export default class extends Base {
     }
 
     let articleId = await this.model.add(article);
-    return this.success(articleId);
+    if(_.isNumber(articleId)){
+      return this.success(articleId);
+    } else {
+      return this.fail("ARTICLE_ADD_FAIL");
+    }
+    
   }
 
   /**
