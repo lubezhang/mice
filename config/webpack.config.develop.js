@@ -2,6 +2,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var srcPath = "./www/src/";
 
@@ -49,13 +50,14 @@ module.exports = function (ops){
         },
         plugins:[
             new webpack.HotModuleReplacementPlugin(),
+            new ExtractTextPlugin("../css/[name].css"),
             new webpack.optimize.CommonsChunkPlugin( 'common.js'),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/index.html",
                 filename: "../../../view/home/index_index.html",
                 inject: true,
                 // chunks: ['app1', "common.js"],
-                excludeChunks: ['admin'],
+                excludeChunks: ['admin', 'app', "common.js"],
                 minify: {
                     removeComments: false,
                     collapseWhitespace:false,

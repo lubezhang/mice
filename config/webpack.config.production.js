@@ -55,7 +55,7 @@ module.exports = function (ops){
                 filename: "../../../view/home/index_index.html",
                 inject: true,
                 // chunks: ['app1', "common.js"],
-                excludeChunks: ['admin'],
+                excludeChunks: ['admin', 'app', "common.js"],
                 minify: {
                     removeComments: false,
                     collapseWhitespace:false,
