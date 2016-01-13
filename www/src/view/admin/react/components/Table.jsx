@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Pagination } from 'react-bootstrap';
-var _ = require("underscore");
+var _ = require("lodash");
 
 class Table extends Component {
 
