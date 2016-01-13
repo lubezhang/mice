@@ -8,24 +8,24 @@ import { ACTION_TYPE, ACTION } from "../../redux/actions";
 import * as ArticleActions from "../../redux/actions";
 
 class Article extends Component {
-    componentWillMount(){
-        // const { dispatch } = this.props;
-        // dispatch(ACTION.funcArticleList());
+    constructor(props) {
+        super(props);
+        this.state = { pageMode: "add" };
     }
 
     render(){
-        debugger;
-        let child, { actions, articleList } = this.props;
+        console.log("****************** render Article ******************")
+        let child, { actions, articleList, article } = this.props;
         switch (this.props.params.method) {
             case "add":
-                child = (<ArticleAdd articleAdd={actions.funcArticleAdd}/>);
+                child = (<ArticleAdd article={article}  actions={actions} /> );
                 break;
-            default:
-                child = (<ArticleList articleList={articleList} actions={actions}/>);
+            default: 
+                child = (<ArticleList articleList={articleList} actions={actions} />);
         }
         return (
             <div >
-                {child}
+                { child }
             </div>
         );
     }
@@ -39,15 +39,16 @@ function getArticleList(articleList = {}, filter = ""){
 }
 
 function mapStateToProps(state) {
-  return {
-    articleList: state.articleList
-  }
+    return {
+        articleList: state.articleList,
+        article: state.article
+    }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(ArticleActions, dispatch)
-  }
+    return {
+        actions: bindActionCreators(ArticleActions, dispatch)
+    }
 }
 
 export default connect(

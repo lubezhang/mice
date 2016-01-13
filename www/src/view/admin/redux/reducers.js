@@ -14,6 +14,7 @@ function articleList(articleList = {}, action = {}) {
 function article(article = {}, action = {}) {
     switch (action.type) {
         case ACTION_TYPE.ARTICLE:
+        case ACTION_TYPE.ARTICLE_ADD:
             return Object.assign({}, action.article);
         default:
             return article;
