@@ -27,12 +27,7 @@ module.exports = function (ops){
         module: {
             loaders: [
                 {
-                    test: /\.jsx$/,
-                    loader: 'babel',
-                    exclude: /node_modules/
-                },
-                {
-                    test: /\.js$/,
+                    test: /\.(jsx|js)$/,
                     loader: 'babel',
                     exclude: /node_modules/
                 },
@@ -65,12 +60,12 @@ module.exports = function (ops){
                 filename: "../../../view/home/index_index.html",
                 inject: true,
                 // chunks: ['app1', "common.js"],
-                excludeChunks: ['admin', 'app', "common.js"],
+                excludeChunks: ['admin', 'app.js', "common.js"],
                 minify: {
                     removeComments: false,
-                    collapseWhitespace:false,
-                    keepClosingSlash: true,
-                    removeEmptyElements: true
+                    // collapseWhitespace:false,
+                    keepClosingSlash: false,
+                    // removeEmptyElements: true
                 }
             }),
             new HtmlWebpackPlugin({
