@@ -7,7 +7,7 @@
 // import store from './redux/store';
 
 require("../../sass/app.sass");
-require("../../img/avatar.jpg");
+// require("../../img/avatar.jpg");
 
 // render(
 //     <Provider store={ store() }>

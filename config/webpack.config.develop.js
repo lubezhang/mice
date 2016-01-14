@@ -2,7 +2,6 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var srcPath = "./www/src/";
@@ -24,7 +23,7 @@ module.exports = function (ops){
         },
         output: {
             path: path.join(__dirname, "../dist/static/view"),
-            publicPath: "http://127.0.0.1:3000/static/view/",
+            publicPath: "http://127.0.0.1:3000/dist/static/view/",
             filename: '[name].bundle.js',
             chunkFilename: '[hash].[name].bundle.js'
         },
@@ -34,18 +33,13 @@ module.exports = function (ops){
         module: {
             loaders: [
                 {
-                    test: /\.jsx$/,
-                    loader: 'react-hot!babel',
-                    exclude: /node_modules/
-                },
-                {
-                    test: /\.js$/,
+                    test: /\.(jsx|js)$/,
                     loader: 'react-hot!babel',
                     exclude: /node_modules/
                 },
                 {
                     test:/\.sass$/, 
-                    loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+                    loader: "style-loader!css-loader!sass-loader"
                 },
                 {
                     test: /\.(png|jpg)$/, 
@@ -55,19 +49,18 @@ module.exports = function (ops){
         },
         plugins:[
             new webpack.HotModuleReplacementPlugin(),
-            new ExtractTextPlugin("../css/[name].css"),
             new webpack.optimize.CommonsChunkPlugin( 'common.js'),
-            new CleanWebpackPlugin(['dist/static'], {
-              root: path.join(__dirname, "../"),
-              verbose: true, 
-              dry: false
-            }),
+            // new CleanWebpackPlugin(['dist/static'], {
+            //   root: path.join(__dirname, "../"),
+            //   verbose: true, 
+            //   dry: false
+            // }),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/index.html",
                 filename: "../../../view/home/index_index.html",
                 inject: true,
                 // chunks: ['app1', "common.js"],
-                excludeChunks: ['admin', 'app', "common.js"],
+                excludeChunks: ['admin'],
                 minify: {
                     removeComments: false,
                     collapseWhitespace:false,

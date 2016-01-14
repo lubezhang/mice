@@ -1,6 +1,7 @@
 'use strict';
 
 import Base from './base.js';
+import { markdown } from "../utils/markdown"
 
 export default class extends Base {
   init(http){
@@ -22,7 +23,7 @@ export default class extends Base {
   async indexAction(){
     let articleList = await this.model.page(this.get("page"), 10).countSelect();
     articleList.data.map(article => {
-      article.content = article.content.slice(0, 300);
+      article.content = markdown(article.content.slice(0, 300));
     });
     this.assign({
       "articleList": articleList.data
