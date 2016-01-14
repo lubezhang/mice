@@ -2,11 +2,13 @@ var thinkjs = require('thinkjs');
 var path = require('path');
 
 var rootPath = path.dirname(__dirname);
+var distPath = "/dist";
+var staticPath = rootPath + distPath;
 
 var instance = new thinkjs({
-  APP_PATH: rootPath + '/app',
+  APP_PATH: rootPath + distPath + '/app',
   ROOT_PATH: rootPath,
-  RESOURCE_PATH: __dirname,
+  RESOURCE_PATH: staticPath,
   env: 'production'
 });
 

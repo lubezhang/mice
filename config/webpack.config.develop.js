@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var srcPath = "./www/src/";
 
@@ -22,8 +23,8 @@ module.exports = function (ops){
             ]
         },
         output: {
-            path: path.join(__dirname, "../www/static/view"),
-            publicPath: "http://127.0.0.1:3000/www/static/view/",
+            path: path.join(__dirname, "../dist/static/view"),
+            publicPath: "http://127.0.0.1:3000/static/view/",
             filename: '[name].bundle.js',
             chunkFilename: '[hash].[name].bundle.js'
         },
@@ -44,14 +45,23 @@ module.exports = function (ops){
                 },
                 {
                     test:/\.sass$/, 
-                    loader: "style!css!sass"
-                }
+                    loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+                },
+                {
+                    test: /\.(png|jpg)$/, 
+                    loader: 'url-loader?limit=8192'
+                } 
             ]
         },
         plugins:[
             new webpack.HotModuleReplacementPlugin(),
             new ExtractTextPlugin("../css/[name].css"),
             new webpack.optimize.CommonsChunkPlugin( 'common.js'),
+            new CleanWebpackPlugin(['dist/static'], {
+              root: path.join(__dirname, "../"),
+              verbose: true, 
+              dry: false
+            }),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/index.html",
                 filename: "../../../view/home/index_index.html",

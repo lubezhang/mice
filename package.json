@@ -1,10 +1,10 @@
 {
-  "name": "thinkjs-application",
-  "description": "application created by thinkjs",
+  "name": "My-Blog",
+  "description": "My blog description",
   "version": "1.0.0",
   "scripts": {
     "start": "node www/development.js",
-    "thinkjs": "babel --loose all --optional runtime --stage 0 --modules common src/ --out-dir app/ --retain-lines",
+    "thinkjs": "babel --loose all --optional runtime --stage 0 --modules common src/ --out-dir dist/app/ --retain-lines",
     "webpack": "webpack --progress --colors --config config/webpack.config.production.js",
     "static": "node dev-server.js",
     "watch-thinkjs": "npm run thinkjs -- --watch",
@@ -22,8 +22,10 @@
   "devDependencies": {
     "babel-core": "^5.8.34",
     "babel-loader": "^5.4.0",
+    "clean-webpack-plugin": "^0.1.6",
     "css-loader": "^0.23.0",
     "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.8.5",
     "html-webpack-plugin": "^1.7.0",
     "lodash": "^4.0.0",
     "marked": "^0.3.5",
@@ -40,6 +42,7 @@
     "redux-thunk": "^1.0.0",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   }
