@@ -62,10 +62,10 @@ module.exports = function (ops){
                 // chunks: ['app1', "common.js"],
                 excludeChunks: ['admin'],
                 minify: {
-                    removeComments: false,
-                    collapseWhitespace:false,
-                    keepClosingSlash: true,
-                    removeEmptyElements: true
+                    removeComments: true,
+                    // collapseWhitespace:false,
+                    keepClosingSlash: false
+                    // removeEmptyElements: true
                 }
             }),
             new HtmlWebpackPlugin({

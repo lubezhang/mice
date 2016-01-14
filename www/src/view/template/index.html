@@ -28,7 +28,7 @@
             </nav>
         </div>
         <div class="middle">
-        <%articleList.forEach(function(item){%>
+        <% articleList.forEach(function(item){ %>
             <article class="article">
                 <div class="title clearfix">
                     <h1><a href="/article/168"><%=item.title%></a></h1>
@@ -36,7 +36,8 @@
                 </div>
                 <div class="content"><%-item.content%></div>
             </article>
-        <%})%>
+        <% }) %>
         </div>
     </div>
+</body>
 </html>
