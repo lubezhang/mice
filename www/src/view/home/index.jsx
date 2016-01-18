@@ -17,4 +17,4 @@ require("../../sass/app.sass");
 // );
 
 
-// render(routes, document.getElementById("wrapper"));
+// render(<div></div>, document.getElementById("wrapper"));

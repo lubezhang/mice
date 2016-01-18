@@ -2,7 +2,6 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var srcPath = "./www/src/";
 
@@ -34,7 +33,7 @@ module.exports = function (ops){
             loaders: [
                 {
                     test: /\.(jsx|js)$/,
-                    loader: 'react-hot!babel',
+                    loader: 'babel?presets[]=react,presets[]=es2015',
                     exclude: /node_modules/
                 },
                 {
@@ -44,17 +43,12 @@ module.exports = function (ops){
                 {
                     test: /\.(png|jpg)$/, 
                     loader: 'url-loader?limit=8192'
-                } 
+                }  
             ]
         },
         plugins:[
             new webpack.HotModuleReplacementPlugin(),
             new webpack.optimize.CommonsChunkPlugin( 'common.js'),
-            // new CleanWebpackPlugin(['dist/static'], {
-            //   root: path.join(__dirname, "../"),
-            //   verbose: true, 
-            //   dry: false
-            // }),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/index.html",
                 filename: "../../../view/home/index_index.html",

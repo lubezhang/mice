@@ -18,17 +18,17 @@ module.exports = function (ops){
         output: {
             path: path.join(__dirname, "../dist/static/view/"),
             publicPath: "/static/view/",
-            filename: '[name].bundle.js',
+            filename: '[name].[chunkhash].js',
             chunkFilename: '[hash].[name].bundle.js'
         },
         resolve: {
-          extensions: ['', '.js', '.jsx', '.less']
+          extensions: ['', '.js', '.jsx', '.sass']
         },
         module: {
             loaders: [
                 {
                     test: /\.(jsx|js)$/,
-                    loader: 'babel',
+                    loader: 'babel?presets[]=react,presets[]=es2015',
                     exclude: /node_modules/
                 },
                 {
@@ -48,8 +48,8 @@ module.exports = function (ops){
                     warnings: false
                 }
             }),
-            new ExtractTextPlugin("../css/[name].css"),
-            new webpack.optimize.CommonsChunkPlugin( 'common.js'),
+            new ExtractTextPlugin("../css/[name]-[contenthash].css"),
+            new webpack.optimize.CommonsChunkPlugin( 'common.[hash].js'),
             new CleanWebpackPlugin(['dist/static'], {
               root: path.join(__dirname, "../"),
               verbose: true, 
@@ -59,8 +59,8 @@ module.exports = function (ops){
                 template: srcPath + "view/template/index.html",
                 filename: "../../../view/home/index_index.html",
                 inject: true,
-                // chunks: ['app1', "common.js"],
-                excludeChunks: ['admin', 'app.js', "common.js"],
+                chunks: ['app'],
+                // excludeChunks: ['admin', "common.js"],
                 minify: {
                     removeComments: false,
                     // collapseWhitespace:false,
