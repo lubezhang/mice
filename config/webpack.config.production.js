@@ -5,15 +5,15 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var srcPath = "./www/src/";
+var srcPath = "./src/page/";
 var staticPath = path.join(__dirname, "../dist/static/");
 
 module.exports = function (ops){
     var config = {
         // debug: true,
         entry: {
-            app: './www/src/view/home/index.jsx',
-            admin: './www/src/view/admin/admin.jsx'
+            app: srcPath + 'view/home/index.jsx',
+            admin: srcPath + 'view/admin/admin.jsx'
         },
         output: {
             path: path.join(__dirname, "../dist/static/view/"),
@@ -43,6 +43,8 @@ module.exports = function (ops){
             ]
         },
         plugins:[
+            // new webpack.optimize.DedupePlugin(),
+            new webpack.NoErrorsPlugin(),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false
@@ -57,7 +59,7 @@ module.exports = function (ops){
             }),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/index.html",
-                filename: "../../../view/home/index_index.html",
+                filename: "../../../www/view/home/index_index.html",
                 inject: true,
                 chunks: ['app'],
                 // excludeChunks: ['admin', "common.js"],
@@ -70,7 +72,7 @@ module.exports = function (ops){
             }),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/admin.html",
-                filename: "../../../view/admin/index_index.html",
+                filename: "../../../www/view/admin/index_index.html",
                 inject: true,
                 // chunks: ['app1', "common.js"],
                 excludeChunks: ['app'],

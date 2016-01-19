@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node www/development.js",
-    "compile": "babel --presets es2015-loose,stage-1 --plugins transform-runtime src/ --out-dir dist/app/ --retain-lines",
+    "build": "npm run clear && npm run compile",
+    "clear": "rm -rf dist/server",
+    "compile": "babel --presets es2015-loose,stage-1 --plugins transform-runtime src/server --out-dir dist/server/ --retain-lines",
     "webpack": "webpack --progress --colors --config config/webpack.config.production.js",
     "webpack-dev": "webpack --progress --colors --config config/webpack.config.develop.js",
     "static": "node dev-server.js"

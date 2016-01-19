@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var srcPath = "./www/src/";
+var srcPath = "./src/page/";
 
 module.exports = function (ops){
     var config = {
@@ -51,7 +51,7 @@ module.exports = function (ops){
             new webpack.optimize.CommonsChunkPlugin( 'common.js'),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/index.html",
-                filename: "../../../view/home/index_index.html",
+                filename: "../../../www/view/home/index_index.html",
                 inject: true,
                 // chunks: ['app1', "common.js"],
                 excludeChunks: ['admin'],
@@ -64,7 +64,7 @@ module.exports = function (ops){
             }),
             new HtmlWebpackPlugin({
                 template: srcPath + "view/template/admin.html",
-                filename: "../../../view/admin/index_index.html",
+                filename: "../../../www/view/admin/index_index.html",
                 inject: true,
                 // chunks: ['app1', "common.js"],
                 excludeChunks: ['app'],

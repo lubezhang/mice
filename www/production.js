@@ -6,7 +6,7 @@ var distPath = "/dist";
 var staticPath = rootPath + distPath;
 
 var instance = new thinkjs({
-  APP_PATH: rootPath + distPath + '/app',
+  APP_PATH: rootPath + distPath + '/server',
   ROOT_PATH: rootPath,
   RESOURCE_PATH: staticPath,
   env: 'production'
