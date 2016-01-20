@@ -122,3 +122,42 @@ html, body{
         }
     }
 }
+
+
+@media screen and (max-width: 640px) {
+    .container {
+        min-width: 100%;
+        .left {
+            position: relative;
+            width: 100%;
+            height: initial;
+            .avatar {
+                margin-top:0;
+                display: inline-block;
+                a {
+                    height: $avatar-size/2;
+                    width: $avatar-size/2;
+                    background-size: $avatar-size/2 $avatar-size/2;  
+                }
+            }
+            .user-name {
+                display: inline-block;
+            }
+
+            .main-nav {
+                margin-top: 0px;
+                text-align: center;
+                & > ul {
+                    margin-left: 0px;
+                }
+                & li {
+                    display: inline-block;
+                    margin: 0 10px;
+                }
+            }
+        }
+        .middle {
+            margin-left: 0;
+        }
+    }
+}
