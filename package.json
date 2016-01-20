@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node www/development.js",
+    "test": "mocha test/**/*.test.js -t 5000 --reporter spec",
     "build": "npm run clear && npm run compile",
     "clear": "rm -rf dist/server",
     "compile": "babel --presets es2015-loose,stage-1 --plugins transform-runtime src/server --out-dir dist/server/ --retain-lines",
@@ -36,6 +37,7 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.0.0",
     "marked": "^0.3.5",
+    "mocha": "^2.3.4",
     "moment": "^2.10.6",
     "react": "^0.14.6",
     "react-bootstrap": "^0.28.1",
@@ -47,6 +49,7 @@
     "redux-logger": "^2.1.1",
     "redux-thunk": "^1.0.0",
     "sass-loader": "^3.1.2",
+    "should": "^8.1.1",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.11",
