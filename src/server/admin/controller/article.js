@@ -46,6 +46,21 @@ export default class extends Base {
   }
 
   /**
+   * 删除文章
+   */
+  async delAction(){
+    let articleId = this.post("articleId");
+
+    let affectedRows = await this.model.where({id: articleId}).delete();
+    if(_.isNumber(affectedRows)){
+      return this.success(affectedRows);
+    } else {
+      return this.fail("ARTICLE_ADD_FAIL");
+    }
+    
+  }
+
+  /**
    * 文章列表
    * @return {[type]} [description]
    */

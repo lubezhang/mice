@@ -1,17 +1,28 @@
 import fetch from "isomorphic-fetch";
 
+let isTest = false;
+
 const ACTION_URL = {
     article_list: "/article/list",
     article_add: "/article/add",
+    article_del: "/article/del",
     article: "/article/c"
 };
 
 const ACTION_TYPE = {
     ARTICLE_LIST: "article_list",
     ARTICLE: "article",
-    ARTICLE_ADD: "article_add"
+    ARTICLE_ADD: "article_add",
+    ARTICLE_DEL: "article_del"
 };
 
+function getUrl(actionType) {
+    return (isTest ? "http://127.0.0.1:8360" : "") + "/admin" + ACTION_URL[actionType]
+}
+
+function setTest() {
+    isTest = true;
+}
 
 /**
  * 向后台发起获取数据的请求
@@ -25,7 +36,7 @@ function fecthPosts(actionType, params){
         paramList.push(key+"="+params[key]);
     }
     return dispatch => {
-        fetch("/admin"+ACTION_URL[actionType], { method: "POST", body:paramList.join("&") })
+        fetch(getUrl(actionType), { method: "POST", body:paramList.join("&") })
             .then(response => response.json())
             .then(json => dispatch(receivePosts(actionType, json)));
     };
@@ -74,6 +85,13 @@ export function funcArticleAdd(article){
     };
 }
 
+export function funcArticleDel(articleId){
+    return (dispatch, getState) => {
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_DEL, articleId));
+    };
+}
+
 export {
-    ACTION_TYPE
+    ACTION_TYPE,
+    setTest
 };
