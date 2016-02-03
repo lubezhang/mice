@@ -31,7 +31,7 @@
         <% articleList.forEach(function(item){ %>
             <article class="article">
                 <div class="title clearfix">
-                    <h1><a href="/article/168"><%=item.title%></a></h1>
+                    <h1><a href="/article/<%=item.id%>"><%=item.title%></a></h1>
                     <span class="create-time"><%=item.date%></span>
                 </div>
                 <div class="content"><%-item.content%></div>
