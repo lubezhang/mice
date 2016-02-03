@@ -9,6 +9,7 @@ var staticPath = rootPath + distPath;
 exports.thinkjs = {
     APP_PATH: appPath,
     ROOT_PATH: rootPath,
+    RUNTIME_PATH: appPath + think.sep + 'runtime',
     RESOURCE_PATH: staticPath,
     env: 'development'
 };

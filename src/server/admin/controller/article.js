@@ -1,5 +1,7 @@
 'use strict';
 
+import moment from 'moment';
+
 import Base from './base.js';
 import _ from "lodash";
 // import { markdown } from "../utils/markdown"
@@ -33,7 +35,8 @@ export default class extends Base {
 
     let article = {
       "title": title,
-      "content": content
+      "content": content,
+      "date": moment() 
     }
 
     let articleId = await this.model.add(article);
@@ -65,7 +68,9 @@ export default class extends Base {
    * @return {[type]} [description]
    */
   async listAction(){
+    let that = this;
     let articleList = await this.model.field("id,title").page(this.get("page"), 10).countSelect();
+    // console.log(JSON.stringify(articleList));
     return this.success(articleList);
   }
 
@@ -77,7 +82,13 @@ export default class extends Base {
     let id = this.param("id");
     let article = await this.model.where({"id": id}).find();
     // article.content = markdown(article.content);
-    return this.success(article);
+    return this.success(article).catch(function(err){
+      //忽略 PREVENT_NEXT_PROCESS 错误
+      if(think.isPrevent(err)){
+        return;
+      }
+      console.log(err.stack);
+    });
   }
 
 }
