@@ -131,8 +131,12 @@ html, body{
             position: relative;
             width: 100%;
             height: initial;
+            padding: 25px 0;
             .avatar {
-                margin-top:0;
+                position: absolute;
+                top:-15px;
+                left: 20px;
+                // margin-top:0;
                 display: inline-block;
                 a {
                     height: $avatar-size/2;
@@ -141,11 +145,12 @@ html, body{
                 }
             }
             .user-name {
-                display: inline-block;
+                // display: inline-block;
+                margin-top:0;
             }
 
             .main-nav {
-                margin-top: 0px;
+                margin-top: 30px;
                 text-align: center;
                 & > ul {
                     margin-left: 0px;
