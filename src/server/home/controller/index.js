@@ -38,16 +38,4 @@ export default class extends Base {
     return this.display();
   }
 
-    /**
-   * 文章列表
-   * @return {[type]} [description]
-   */
-  async listAction(){
-    let articleList = await this.model.page(this.get("page"), 10).countSelect();
-    articleList.data.map(article => {
-      article.content = article.content.slice(0, 300);
-    });
-    return this.success(articleList);
-  }
-
 }

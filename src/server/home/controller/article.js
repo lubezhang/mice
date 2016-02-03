@@ -1,5 +1,7 @@
 'use strict';
 
+import moment from 'moment';
+
 import Base from './base.js';
 import { markdown } from "../utils/markdown"
 
@@ -38,14 +40,19 @@ export default class extends Base {
   }
 
   /**
-   * 获取文章详细内容
+   * 获取文章详细页面
    * @return {[type]} [description]
    */
-  async cAction(){
-    let id = this.param("id");
+  async detailAction(){
+    let id = this.get("id");
     let article = await this.model.where({"id": id}).find();
-    article.content = markdown(article.content);
-    return this.success(article);
-  }
 
+    article.content = markdown(article.content);
+    article.date = moment(article.date).format("YYYY-MM-DD")
+
+    this.assign({
+      "article": article
+    });
+    return this.display();
+  }
 }
