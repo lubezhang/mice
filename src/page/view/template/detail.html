@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/> 
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"> 
     <title>小站</title>
 </head>
 <body>
@@ -28,16 +28,14 @@
             </nav>
         </div>
         <div class="middle">
-        <% articleList.forEach(function(item){ %>
             <article class="article">
                 <div class="title clearfix">
-                    <h1><a href="/article/detail?id=<%=item.id%>"><%=item.title%></a></h1>
-                    <span class="create-time"><%=item.date%></span>
+                    <h1><%=article.title%></h1>
+                    <span class="create-time"><%=article.date%></span>
                 </div>
-                <div class="content"><%-item.content%></div>
+                <div class="content"><%-article.content%></div>
             </article>
-        <% }) %>
         </div>
     </div>
-</body>
+    </body>
 </html>
