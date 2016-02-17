@@ -1,7 +1,5 @@
 'use strict';
 
-import moment from 'moment';
-
 import Base from './base.js';
 import { markdown } from "../utils/markdown"
 
@@ -26,10 +24,9 @@ export default class extends Base {
     let articleList = await this.model.page(this.get("page"), 10).countSelect();
     articleList.data.map(article => {
       article.content = markdown(article.content.slice(0, 300));
-      article.date = moment(article.date).format("YYYY-MM-DD")
     });
     this.assign({
-      "articleList": articleList.data,
+      "articleList": articleList.data
     });
     return this.display();
   }
