@@ -54,7 +54,7 @@ function receivePosts(actionType, json){
     };
     switch(actionType) {
         case ACTION_TYPE.ARTICLE_LIST:
-            state.articleList = json.data;
+            state.articleList = json;
             break;
         case ACTION_TYPE.ARTICLE_ADD:
         case ACTION_TYPE.ARTICLE:

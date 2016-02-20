@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import _ from "lodash";
 import ArticleList from "./article/ArticleList";
 import ArticleAdd from "./article/ArticleAdd";
 
@@ -10,11 +11,24 @@ import * as ArticleActions from "../../redux/actions";
 class Article extends Component {
     constructor(props) {
         super(props);
-        this.state = { pageMode: "add" };
+    }
+
+    analyzeResData(resData){
+        if(_.isEmpty(resData)) {
+            return false;
+        }
+
+        if(resData.errno !== 0) {
+            console.log(resData.errmsg);
+            return false;
+        }
+
+        return resData.data;
     }
 
     render(){
         let child, { actions, articleList, article } = this.props;
+        articleList = this.analyzeResData(articleList);
         switch (this.props.params.method) {
             case "add":
                 child = (<ArticleAdd article={article}  actions={actions} /> );

@@ -33,7 +33,7 @@ module.exports = function (ops){
             loaders: [
                 {
                     test: /\.(jsx|js)$/,
-                    loader: 'babel?presets[]=react,presets[]=es2015',
+                    loader: 'react-hot!babel?presets[]=react,presets[]=es2015',
                     exclude: /node_modules/
                 },
                 {
