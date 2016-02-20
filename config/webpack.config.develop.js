@@ -63,19 +63,6 @@ module.exports = function (ops){
                 }
             }),
             new HtmlWebpackPlugin({
-                template: srcPath + "view/template/detail.html",
-                filename: "../../../www/view/home/article_detail.html",
-                inject: true,
-                // chunks: ['app1', "common.js"],
-                excludeChunks: ['admin'],
-                minify: {
-                    removeComments: true,
-                    // collapseWhitespace:false,
-                    keepClosingSlash: false
-                    // removeEmptyElements: true
-                }
-            }),
-            new HtmlWebpackPlugin({
                 template: srcPath + "view/template/admin.html",
                 filename: "../../../www/view/admin/index_index.html",
                 inject: true,

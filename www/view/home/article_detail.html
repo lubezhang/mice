@@ -30,12 +30,12 @@
         <div class="middle">
             <article class="article">
                 <div class="title clearfix">
-                    <h1><%=article.title%></h1>
+                    <h1><a href="/article/detail?id=<%=article.id%>"><%=article.title%></a></h1>
                     <span class="create-time"><%=article.date%></span>
                 </div>
                 <div class="content"><%-article.content%></div>
             </article>
         </div>
     </div>
-    <script src="http://127.0.0.1:3000/dist/static/view/common.js"></script><script src="http://127.0.0.1:3000/dist/static/view/app.bundle.js"></script></body>
+<script src="http://127.0.0.1:3000/dist/static/view/common.js"></script><script src="http://127.0.0.1:3000/dist/static/view/app.bundle.js"></script></body>
 </html>
