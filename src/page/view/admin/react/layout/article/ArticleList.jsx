@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import _ from "lodash";
+import { Alert } from 'react-bootstrap';
 
-import { ACTION_TYPE, ACTION } from "../../../redux/actions";
+import { ACTION_TYPE } from "../../../common/constants";
 import { Table } from "../../components";
 
 export default class ArticleList extends Component {
@@ -13,17 +15,37 @@ export default class ArticleList extends Component {
         const { actions } = this.props;
         actions.funcArticleList();
     }
+
+    resultHandle(article){
+        let { detail, actionType } = article;
+        if(actionType === ACTION_TYPE.ARTICLE_DEL) {
+            if(detail.errno === 0) {
+                // 删除成功，重新加载列表
+                detail.errmsg = "删除成功";
+                this.searchHandle()
+            } else {
+                // 删除失败，显示错误信息
+            }
+            return <Alert>{detail.errmsg}</Alert>;
+        }
+        return ;
+    }
     
     render(){
-        const { articleList } = this.props;
+        let { actions, article } = this.props;
+        let { articleList, detail, actionType } = article;
+        
+        let alert = this.resultHandle(article);
+        let list = _.isEmpty(articleList) ? [] : articleList.data.data;
         return (
             <div>
+                {alert}
                 <div className="row">
                     <div className="col-md-12">
                         <a href="#/article/add" className="btn btn-info btn-xs">添加文章</a>
                     </div>
                 </div>
-                <Table articleList={articleList} />
+                <Table list={list} deleteHandle={actions.funcArticleDel} />
             </div>
         );
     }

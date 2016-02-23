@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { ACTION_TYPE } from "./actions";
+import { ACTION_TYPE } from "../common/constants";
 
 function articleList(articleList = {}, action = {}) {
     switch (action.type) {
@@ -13,15 +13,20 @@ function articleList(articleList = {}, action = {}) {
 
 function article(article = {}, action = {}) {
     switch (action.type) {
-        case ACTION_TYPE.ARTICLE:
         case ACTION_TYPE.ARTICLE_ADD:
+        case ACTION_TYPE.ARTICLE_DEL:
             return Object.assign({}, action.article);
         default:
             return article;
     }
 }
 
+function actionType(article = {}, action = {}){
+    return action.type
+}
+
 export default combineReducers({
     articleList,
-    article
+    article,
+    actionType
 });

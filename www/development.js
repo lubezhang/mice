@@ -13,7 +13,7 @@ var instance = new thinkjs({
   RESOURCE_PATH: staticPath,
   env: 'development'
 });
-
+ 
 instance.compile(srcPath, appPath, {retainLines: true, log: true});
 
 instance.run();

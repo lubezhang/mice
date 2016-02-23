@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Input, ButtonToolbar, Button, Alert, Panel } from 'react-bootstrap';
 import _ from "lodash";
 
-import { ACTION_TYPE, ACTION } from "../../../redux/actions";
+import { ACTION_TYPE } from "../../../common/constants";
 import { markdown } from "../../../common/markdown";
 
 export default class ArticleAdd extends Component {
@@ -42,23 +42,22 @@ export default class ArticleAdd extends Component {
         })
     }
 
-    showAlert(){
-        let alert, { article } = this.props;
-        if(_.isEmpty(article)){
-            return "";
-        } 
-
-        if(article.errno === 0){
-            alert = <Alert>添加成功</Alert>
-        } else {
-            alert = <Alert bsStyle="danger">{ article.errmsg }</Alert>
+    showAlert(article){
+        let alert, { detail, actionType } = article;
+        if(actionType === ACTION_TYPE.ARTICLE_ADD) {
+            if(detail.errno === 0) {
+                alert = <Alert>添加成功</Alert>;
+            } else {
+                // 删除失败，显示错误信息
+                alert = <Alert bsStyle="danger">{ article.errmsg }</Alert>
+            }
         }
         return alert;
     }
 
     render() {
         let { article } = this.props;
-        let alert = this.showAlert();
+        let alert = this.showAlert(article);
         return (
             <div>
             <form>

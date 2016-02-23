@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import _ from "lodash";
+
 import ArticleList from "./article/ArticleList";
 import ArticleAdd from "./article/ArticleAdd";
 
-import { ACTION_TYPE, ACTION } from "../../redux/actions";
+import { ACTION_TYPE } from "../../common/constants";
 import * as ArticleActions from "../../redux/actions";
 
 class Article extends Component {
@@ -27,14 +28,16 @@ class Article extends Component {
     }
 
     render(){
-        let child, { actions, articleList, article } = this.props;
-        articleList = this.analyzeResData(articleList);
+        let child, { actions, article } = this.props;
+        let articleList = this.analyzeResData(article.articleList);
+        // let article = this.analyzeResData(article.detail);
+
         switch (this.props.params.method) {
             case "add":
                 child = (<ArticleAdd article={article}  actions={actions} /> );
                 break;
             default: 
-                child = (<ArticleList articleList={articleList} actions={actions} />);
+                child = (<ArticleList article={article} actions={actions} />);
         }
         return (
             <div >
@@ -44,17 +47,13 @@ class Article extends Component {
     }
 }
 
-function getArticleList(articleList = {}, filter = ""){
-    switch(filter){
-        default:
-            return articleList;
-    }
-}
-
 function mapStateToProps(state) {
     return {
-        articleList: state.articleList,
-        article: state.article
+        article: {
+            articleList: state.articleList,
+            detail: state.article,
+            actionType: state.actionType
+        }
     }
 }
 

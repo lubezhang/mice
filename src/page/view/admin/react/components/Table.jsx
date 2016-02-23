@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Pagination } from 'react-bootstrap';
-var _ = require("lodash");
+
 
 class Table extends Component {
 
-    deleleHandle(articleId) {
-        console.log(articleId);
+    deleleHandle(id) {
+        console.log(id);
+        let { deleteHandle } = this.props;
+        deleteHandle(id)
     }
 
     render(){
-        let list = _.isEmpty(this.props.articleList) ? [] : this.props.articleList.data;
+        let { list } = this.props;
         return (
             <div>
                 <table className="table table-hover table-condensed">
@@ -23,13 +25,13 @@ class Table extends Component {
                     </thead>
                     <tbody>
                     {
-                        list.map((article, index) =>
+                        list.map((item, index) =>
                             <tr key={index}>
                                 <td><input type="checkbox"/></td>
-                                <td>{article.id}</td>
-                                <td>{article.title}</td>
+                                <td>{item.id}</td>
+                                <td>{item.title}</td>
                                 <td>
-                                    <button className="btn btn-xs" onClick={this.deleleHandle.bind(this, article.id)}>删除</button>
+                                    <button className="btn btn-xs" onClick={this.deleleHandle.bind(this, item.id)}>删除</button>
                                 </td>
                             </tr>
                         )

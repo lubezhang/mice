@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import ArticleContent from "../components/ArticleContent";
-import { ACTION_TYPE, ACTION } from "../../redux/actions";
+import { ACTION } from "../../redux/actions";
 
 class Article extends Component {
     componentWillMount(){

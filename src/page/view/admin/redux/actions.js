@@ -1,20 +1,9 @@
-import fetch from "isomorphic-fetch";
+require('es6-promise').polyfill();
+import fetch from "isomorphic-fetch"; 
+
+import { ACTION_TYPE, ACTION_URL } from "../common/constants";
 
 let isTest = false;
-
-const ACTION_URL = {
-    article_list: "/article/list",
-    article_add: "/article/add",
-    article_del: "/article/del",
-    article: "/article/c"
-};
-
-const ACTION_TYPE = {
-    ARTICLE_LIST: "article_list",
-    ARTICLE: "article",
-    ARTICLE_ADD: "article_add",
-    ARTICLE_DEL: "article_del"
-};
 
 function getUrl(actionType) {
     return (isTest ? "http://127.0.0.1:8360" : "") + "/admin" + ACTION_URL[actionType]
@@ -57,7 +46,7 @@ function receivePosts(actionType, json){
             state.articleList = json;
             break;
         case ACTION_TYPE.ARTICLE_ADD:
-        case ACTION_TYPE.ARTICLE:
+        case ACTION_TYPE.ARTICLE_DEL:
             state.article = json;
             break;
 
@@ -87,7 +76,7 @@ export function funcArticleAdd(article){
 
 export function funcArticleDel(articleId){
     return (dispatch, getState) => {
-        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_DEL, articleId));
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_DEL, {articleId:articleId}));
     };
 }
 

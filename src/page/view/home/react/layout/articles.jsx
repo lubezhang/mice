@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import ArticleList from "../components/ArticleList";
-import { ACTION_TYPE, ACTION } from "../../redux/actions";
+import { ACTION } from "../../redux/actions";
 
 class Articles extends Component {
 
