@@ -82,6 +82,19 @@ module.exports = function (ops){
                     keepClosingSlash: true,
                     removeEmptyElements: true
                 }
+            }),
+            new HtmlWebpackPlugin({
+                template: srcPath + "view/template/detail.html",
+                filename: "../../../www/view/home/article_detail.html",
+                inject: true,
+                chunks: ['app'],
+                // excludeChunks: ['app'],
+                minify: {
+                    removeComments: false,
+                    collapseWhitespace:false,
+                    keepClosingSlash: true,
+                    removeEmptyElements: true
+                }
             })
         ]
     };
