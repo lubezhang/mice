@@ -11,10 +11,10 @@ export default class ArticleList extends Component {
         actions.funcArticleList();
     }
     
-    searchHandle(){
-        const { actions } = this.props;
-        actions.funcArticleList();
-    }
+    // searchHandle(){
+    //     const { actions } = this.props;
+    //     actions.funcArticleList();
+    // }
 
     resultHandle(article){
         let { detail, actionType } = article;
@@ -45,7 +45,7 @@ export default class ArticleList extends Component {
                         <a href="#/article/add" className="btn btn-info btn-xs">添加文章</a>
                     </div>
                 </div>
-                <Table list={list} deleteHandle={actions.funcArticleDel} />
+                <Table list={list} searchHandle={actions.funcArticleList} deleteHandle={actions.funcArticleDel} />
             </div>
         );
     }

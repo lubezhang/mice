@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Pagination } from 'react-bootstrap';
-
+import Pagination from './Pagination';
+// import { Pagination } from 'react-bootstrap';
 
 class Table extends Component {
 
@@ -10,8 +10,12 @@ class Table extends Component {
         deleteHandle(id)
     }
 
+    handleSelect(){
+        console.log("handleSelect");
+    }
+
     render(){
-        let { list } = this.props;
+        let { list, searchHandle } = this.props;
         return (
             <div>
                 <table className="table table-hover table-condensed">
@@ -38,16 +42,18 @@ class Table extends Component {
                     }
                     </tbody>
                 </table>
+
                 <Pagination
                     prev
                     next
                     first
                     last
                     ellipsis
-                    items={20}
-                    maxButtons={5}
-                    activePage={1}
-                    onSelect={this.handleSelect} />
+                    boundaryLinks
+                    items={14}
+                    maxButtons={6}
+                    activePage={6}
+                    onSelect={searchHandle} />
             </div>
         );
     }
