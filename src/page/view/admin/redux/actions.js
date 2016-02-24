@@ -25,7 +25,13 @@ function fecthPosts(actionType, params){
         paramList.push(key+"="+params[key]);
     }
     return dispatch => {
-        fetch(getUrl(actionType), { method: "POST", body:paramList.join("&") })
+        fetch(getUrl(actionType), { 
+                method: "POST", 
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body:paramList.join("&") 
+            })
             .then(response => response.json())
             .then(json => dispatch(receivePosts(actionType, json)));
     };
