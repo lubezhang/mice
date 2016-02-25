@@ -10,34 +10,44 @@ class Table extends Component {
         deleteHandle(id)
     }
 
-    handleSelect(){
-        console.log("handleSelect");
+    createHeader(){
+        let { column, checkbox, option } = this.props;
+        let columns = [];
+        for (let key in column) {
+            columns.push(<th column={key}>{column[key]}</th>);
+        }
+
+        return (
+            <thead>
+                <tr>
+                    { checkbox ? <th><input type="checkbox"/></th> : "" }
+                    { columns }
+                    { option ? <th>操作</th> : "" }
+                </tr>
+            </thead>
+        );
     }
 
     render(){
-        let { data, searchHandle } = this.props;
+        let { data, searchHandle, checkbox, option } = this.props;
         let list = data.data || [];
         return (
             <div>
                 <table className="table table-hover table-condensed">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"/></th>
-                            <th>编号</th>
-                            <th>标题</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
+                    { this.createHeader() }
                     <tbody>
                     {
                         list.map((item, index) =>
                             <tr key={index}>
-                                <td><input type="checkbox"/></td>
+                                { checkbox ? <td><input type="checkbox"/></td> : "" }
                                 <td>{item.id}</td>
                                 <td>{item.title}</td>
-                                <td>
-                                    <button className="btn btn-xs" onClick={this.deleleHandle.bind(this, item.id)}>删除</button>
-                                </td>
+                                { 
+                                    option ? 
+                                        (<td>
+                                            <button className="btn btn-xs" onClick={this.deleleHandle.bind(this, item.id)}>删除</button>
+                                        </td>) : "" 
+                                }
                             </tr>
                         )
                     }
@@ -58,6 +68,13 @@ class Table extends Component {
             </div>
         );
     }
+}
+
+Table.defaultProps = {
+    checkbox: false,
+    column: [],
+    option: false,
+    data: {}
 }
 
 export default Table
