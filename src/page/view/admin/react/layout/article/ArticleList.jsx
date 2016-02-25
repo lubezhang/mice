@@ -21,6 +21,13 @@ export default class ArticleList extends Component {
         }
         return ;
     }
+
+    getTableColumn(){
+        return {
+            id: "编号",
+            title: "标题"
+        }
+    }
     
     render(){
         let { actions, article } = this.props;
@@ -36,9 +43,13 @@ export default class ArticleList extends Component {
                         <a href="#/article/add" className="btn btn-info btn-xs">添加文章</a>
                     </div>
                 </div>
-                <Table data={data} 
-                       searchHandle={actions.funcArticleList} 
-                       deleteHandle={actions.funcArticleDel} 
+                <Table 
+                    data={data}
+                    checkbox={true}
+                    option={true}
+                    column={this.getTableColumn()} 
+                    searchHandle={actions.funcArticleList} 
+                    deleteHandle={actions.funcArticleDel} 
                 />
             </div>
         );

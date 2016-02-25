@@ -9,7 +9,7 @@ class Pagination extends Component {
         let { onSelect } = this.props;
         onSelect({
             currentPage: 1,
-            numsPerPage: 2
+            numsPerPage: 10
         });
     }
 
@@ -19,7 +19,7 @@ class Pagination extends Component {
             console.log("pageNum:", pageNum);
             onSelect({
                 currentPage: pageNum,
-                numsPerPage: 2
+                numsPerPage: 10
             })
         }
     }
