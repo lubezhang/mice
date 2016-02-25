@@ -33,10 +33,11 @@ export default class extends Base {
   async addAction(){
     let title = this.post("title"), content = this.post("content");
 
+    let date = moment().format('YYYY-MM-DD[T]HH:mm:ss');
     let article = {
       "title": title,
       "content": content,
-      "date": moment() 
+      "date": date
     }
 
     let articleId = await this.model.add(article);
@@ -71,7 +72,10 @@ export default class extends Base {
     let currentPage = this.param("currentPage") || 1,
         numsPerPage = this.param("numsPerPage") || 10;
 
-    let articleList = await this.model.field("id,title").page(currentPage, numsPerPage).countSelect();
+    let articleList = await this.model.field("id,title,category_id,date").page(currentPage, numsPerPage).countSelect();
+    articleList.data.map(article => {
+      article.date = article.date?moment(article.date).format("YYYY-MM-DD HH:mm"):""
+    });
     return this.success(articleList);
   }
 
