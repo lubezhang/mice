@@ -68,9 +68,10 @@ export default class extends Base {
    * @return {[type]} [description]
    */
   async listAction(){
-    let that = this;
-    let articleList = await this.model.field("id,title").page(this.get("page"), 10).countSelect();
-    // console.log(JSON.stringify(articleList));
+    let currentPage = this.param("currentPage") || 1,
+        numsPerPage = this.param("numsPerPage") || 10;
+
+    let articleList = await this.model.field("id,title").page(currentPage, numsPerPage).countSelect();
     return this.success(articleList);
   }
 

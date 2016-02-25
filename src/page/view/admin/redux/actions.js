@@ -64,9 +64,9 @@ function receivePosts(actionType, json){
  * 获取文章列表
  * @return {[type]} [description]
  */
-export function funcArticleList() {
+export function funcArticleList(params) {
     return (dispatch, getState) => {
-        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_LIST));
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_LIST, params));
     };
 }
 

@@ -15,7 +15,8 @@ class Table extends Component {
     }
 
     render(){
-        let { list, searchHandle } = this.props;
+        let { data, searchHandle } = this.props;
+        let list = data.data || [];
         return (
             <div>
                 <table className="table table-hover table-condensed">
@@ -50,9 +51,9 @@ class Table extends Component {
                     last
                     ellipsis
                     boundaryLinks
-                    items={14}
+                    items={data.totalPages}
                     maxButtons={6}
-                    activePage={6}
+                    activePage={data.currentPage}
                     onSelect={searchHandle} />
             </div>
         );

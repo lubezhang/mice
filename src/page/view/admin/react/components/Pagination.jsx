@@ -5,11 +5,22 @@ class Pagination extends Component {
         super(props);
     }
 
+    componentWillMount(){
+        let { onSelect } = this.props;
+        onSelect({
+            currentPage: 1,
+            numsPerPage: 2
+        });
+    }
+
     handleClick(pageNum){
         let { items, activePage, onSelect } = this.props;
         if(pageNum !== activePage && pageNum !== 0){
             console.log("pageNum:", pageNum);
-            onSelect()
+            onSelect({
+                currentPage: pageNum,
+                numsPerPage: 2
+            })
         }
     }
 
