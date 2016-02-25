@@ -4,17 +4,26 @@ import Pagination from './Pagination';
 
 class Table extends Component {
 
-    deleleHandle(id) {
+    handleDelete(id) {
         console.log(id);
         let { deleteHandle } = this.props;
         deleteHandle(id)
     }
 
-    createHeader(){
+    renderRow(rowData){
+        let row = [], { column } = this.props;;
+        for(let key in column) {
+            row.push(<td key={key}>{rowData[key]}</td>)
+        }
+
+        return row;
+    }
+
+    renderHeader(){
         let { column, checkbox, option } = this.props;
         let columns = [];
         for (let key in column) {
-            columns.push(<th column={key}>{column[key]}</th>);
+            columns.push(<th key={key} column={key}>{column[key]}</th>);
         }
 
         return (
@@ -34,19 +43,18 @@ class Table extends Component {
         return (
             <div>
                 <table className="table table-hover table-condensed">
-                    { this.createHeader() }
+                    { this.renderHeader() }
                     <tbody>
                     {
                         list.map((item, index) =>
                             <tr key={index}>
                                 { checkbox ? <td><input type="checkbox"/></td> : "" }
-                                <td>{item.id}</td>
-                                <td>{item.title}</td>
-                                { 
-                                    option ? 
-                                        (<td>
-                                            <button className="btn btn-xs" onClick={this.deleleHandle.bind(this, item.id)}>删除</button>
-                                        </td>) : "" 
+                                { this.renderRow(item) }
+                                { option ? 
+                                    (<td>
+                                        <button className="btn btn-xs" onClick={this.handleDelete.bind(this, item.id)}>删除</button>
+                                    </td>) 
+                                    : "" 
                                 }
                             </tr>
                         )
@@ -57,14 +65,11 @@ class Table extends Component {
                 <Pagination
                     prev
                     next
-                    first
-                    last
-                    ellipsis
-                    boundaryLinks
                     items={data.totalPages}
                     maxButtons={6}
                     activePage={data.currentPage}
-                    onSelect={searchHandle} />
+                    onSelect={searchHandle} 
+                />
             </div>
         );
     }

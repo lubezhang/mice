@@ -8,12 +8,13 @@ import { Table } from "../../components";
 export default class ArticleList extends Component {
 
     resultHandle(article){
+        let { actions } = this.props;
         let { detail, actionType } = article;
         if(actionType === ACTION_TYPE.ARTICLE_DEL) {
             if(detail.errno === 0) {
                 // 删除成功，重新加载列表
                 detail.errmsg = "删除成功";
-                this.searchHandle()
+                actions.funcArticleList()
             } else {
                 // 删除失败，显示错误信息
             }
@@ -25,7 +26,9 @@ export default class ArticleList extends Component {
     getTableColumn(){
         return {
             id: "编号",
-            title: "标题"
+            title: "标题",
+            category_id: "类别",
+            date: "创建时间"
         }
     }
     
