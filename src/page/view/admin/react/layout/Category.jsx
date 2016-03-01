@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 
 import * as ArticleActions from "../../redux/actions";
 
-class Tags extends Component {
+class Category extends Component {
     render(){
         return (
             <div className="middle">
-                TagsList
+                CategoryList
             </div>
         );
     }
@@ -33,4 +33,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Tags);
+)(Category);

@@ -16,7 +16,7 @@ export default class Header extends Component {
                 <NavDropdown eventKey={1} title="内容管理" id="basic-nav-dropdown">
                     <MenuItem eventKey={1.1} href="#/article">文章管理</MenuItem>
                     <MenuItem divider/>
-                    <MenuItem eventKey={1.2} disabled>分类管理</MenuItem>
+                    <MenuItem eventKey={1.2} href="#/category">分类管理</MenuItem>
                     <MenuItem eventKey={1.3} href="#/tags">标签管理</MenuItem>
                 </NavDropdown>
                 <NavItem eventKey={2} href="#">权限管理</NavItem>

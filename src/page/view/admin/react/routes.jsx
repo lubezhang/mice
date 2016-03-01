@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 
-import App from "./app";
+import App from "./App";
 
-import { Article, ArticleAdd, Tags } from "./layout"
+import { Article, ArticleAdd, Tags, Category } from "./layout"
 
 // const history = createBrowserHistory();
 var routes = (
@@ -15,6 +15,7 @@ var routes = (
                 <Route path=":method" component={ArticleAdd} />
             </Route>
             <Route path="tags" component={Tags} />
+            <Route path="category" component={Category} />
         </Route>
     </Router>
 );
