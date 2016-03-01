@@ -5,8 +5,6 @@ import _ from "lodash";
 
 import ArticleList from "./article/ArticleList";
 import ArticleAdd from "./article/ArticleAdd";
-
-import { ACTION_TYPE } from "../../common/constants";
 import * as ArticleActions from "../../redux/actions";
 
 class Article extends Component {
