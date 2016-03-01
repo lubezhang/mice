@@ -89,7 +89,7 @@ module.exports = function (ops){
                 }
             })
         ],
-        devtool: 'source-map'
+        devtool: 'inline-source-map'
     };
 
     return config;
