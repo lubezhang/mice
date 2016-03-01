@@ -1,34 +1,23 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import _ from "lodash";
 
 import ArticleList from "./article/ArticleList";
 import ArticleAdd from "./article/ArticleAdd";
 import * as ArticleActions from "../../redux/actions";
+
+import { analyzeResponseData } from "../../common/utils";
 
 class Article extends Component {
     constructor(props) {
         super(props);
     }
 
-    analyzeResData(resData){
-        if(_.isEmpty(resData)) {
-            return false;
-        }
-
-        if(resData.errno !== 0) {
-            console.log(resData.errmsg);
-            return false;
-        }
-
-        return resData.data;
-    }
-
     render(){
         let child, { actions, article } = this.props;
-        let articleList = this.analyzeResData(article.articleList);
-        // let article = this.analyzeResData(article.detail);
+        let { data, result } = analyzeResponseData(article.articleList);
+        // console.log(obj);
+        // debugger;
 
         switch (this.props.params.method) {
             case "add":
