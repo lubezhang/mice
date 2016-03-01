@@ -3,7 +3,7 @@ import _ from "lodash";
 import { Alert } from 'react-bootstrap';
 
 import { ACTION_TYPE } from "../../../common/constants";
-import { Table } from "../../components";
+import { Table, TableToolbar } from "../../components";
 
 export default class ArticleList extends Component {
 
@@ -31,6 +31,24 @@ export default class ArticleList extends Component {
             date: "创建时间"
         }
     }
+
+    getOptions(){
+        let { actions } = this.props;
+        return [
+            {
+                text: "删除",
+                handle: actions.funcArticleDel
+            }
+        ];
+    }
+
+    getTableToolbar(){
+        return (
+            <TableToolbar>
+                <a href="#/article/add" className="btn btn-info btn-xs">添加文章</a>
+            </TableToolbar>
+        );
+    }
     
     render(){
         let { actions, article } = this.props;
@@ -41,18 +59,13 @@ export default class ArticleList extends Component {
         return (
             <div>
                 {alert}
-                <div className="row">
-                    <div className="col-md-12">
-                        <a href="#/article/add" className="btn btn-info btn-xs">添加文章</a>
-                    </div>
-                </div>
                 <Table 
                     data={data}
                     checkbox={true}
-                    option={true}
+                    options={this.getOptions()}
+                    toolbar={this.getTableToolbar()}
                     column={this.getTableColumn()} 
-                    searchHandle={actions.funcArticleList} 
-                    deleteHandle={actions.funcArticleDel} 
+                    searchHandle={actions.funcArticleList}
                 />
             </div>
         );

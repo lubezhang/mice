@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import _ from "lodash";
+
 import Pagination from './Pagination';
 // import { Pagination } from 'react-bootstrap';
 
 class Table extends Component {
 
-    handleDelete(id) {
-        console.log(id);
-        let { deleteHandle } = this.props;
-        deleteHandle(id)
-    }
+    // handleDelete(id) {
+    //     console.log(id);
+    //     let { deleteHandle } = this.props;
+    //     deleteHandle(id)
+    // }
 
     renderRow(rowData){
         let row = [], { column } = this.props;;
@@ -19,8 +21,9 @@ class Table extends Component {
         return row;
     }
 
+    // 生成列头
     renderHeader(){
-        let { column, checkbox, option } = this.props;
+        let { column, checkbox, options } = this.props;
         let columns = [];
         for (let key in column) {
             columns.push(<th key={key} column={key}>{column[key]}</th>);
@@ -31,17 +34,33 @@ class Table extends Component {
                 <tr>
                     { checkbox ? <th><input type="checkbox"/></th> : "" }
                     { columns }
-                    { option ? <th>操作</th> : "" }
+                    { _.isEmpty(options) ? "" : <th>操作</th> }
                 </tr>
             </thead>
         );
     }
 
+    renderOptions(id){
+        let optionList = [], { options } = this.props;
+        if(_.isEmpty(options)) {
+            optionList = '';
+        } else {
+            optionList = options.map((item, index) =>
+                <td key={index}>
+                    <button className="btn btn-xs" onClick={item.handle.bind(this, id)}>{item.text}</button>
+                </td>
+            );
+        }
+
+        return optionList;
+    }
+
     render(){
-        let { data, searchHandle, checkbox, option } = this.props;
+        let { data, searchHandle, checkbox, toolbar } = this.props;
         let list = data.data || [];
         return (
             <div>
+                { toolbar }
                 <table className="table table-hover table-condensed">
                     { this.renderHeader() }
                     <tbody>
@@ -50,12 +69,7 @@ class Table extends Component {
                             <tr key={index}>
                                 { checkbox ? <td><input type="checkbox"/></td> : "" }
                                 { this.renderRow(item) }
-                                { option ? 
-                                    (<td>
-                                        <button className="btn btn-xs" onClick={this.handleDelete.bind(this, item.id)}>删除</button>
-                                    </td>) 
-                                    : "" 
-                                }
+                                { this.renderOptions(item.id) }
                             </tr>
                         )
                     }
@@ -78,7 +92,8 @@ class Table extends Component {
 Table.defaultProps = {
     checkbox: false,
     column: [],
-    option: false,
+    options: [],
+    toolbar: false,
     data: {}
 }
 
