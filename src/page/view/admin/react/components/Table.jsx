@@ -6,48 +6,54 @@ import Pagination from './Pagination';
 
 class Table extends Component {
 
-    // handleDelete(id) {
-    //     console.log(id);
-    //     let { deleteHandle } = this.props;
-    //     deleteHandle(id)
-    // }
-
     renderRow(rowData){
-        let row = [], { column } = this.props;;
-        for(let key in column) {
-            row.push(<td key={key}>{rowData[key]}</td>)
-        }
-
+        let row = [], { columns } = this.props;;
+        row = columns.map((item, index) =>
+            <td key={index} column={index}>{rowData[item.field]}</td>
+        );
         return row;
     }
 
     // 生成列头
     renderHeader(){
-        let { column, checkbox, options } = this.props;
-        let columns = [];
-        for (let key in column) {
-            columns.push(<th key={key} column={key}>{column[key]}</th>);
-        }
+        let { columns, checkbox, options } = this.props;
+        let columnList = [];
+
+        columnList = columns.map((item, index) => {
+            let style = {};
+            if(item.width) {
+                style["width"] = item.width;
+            }
+
+            return (<th key={index} style={style}>{item.text}</th>);
+        });
 
         return (
             <thead>
                 <tr>
-                    { checkbox ? <th><input type="checkbox"/></th> : "" }
-                    { columns }
-                    { _.isEmpty(options) ? "" : <th>操作</th> }
+                    { checkbox ? <th style={{width: "25px"}}><input type="checkbox"/></th> : "" }
+                    { columnList }
+                    { _.isEmpty(options) ? "" : <th style={{width: "25px"}}>操作</th> }
                 </tr>
             </thead>
         );
     }
 
     renderOptions(id){
-        let optionList = [], { options } = this.props;
+        let optionList, buttonList = [], { options } = this.props;
         if(_.isEmpty(options)) {
             optionList = '';
         } else {
-            optionList = options.map((item, index) =>
-                <td key={index}>
-                    <button className="btn btn-xs" onClick={item.handle.bind(this, id)}>{item.text}</button>
+            buttonList = options.map((item, index) =>
+                <button key={index} className="btn btn-xs" 
+                    style={{"marginRight":"5px"}}
+                    onClick={item.handle.bind(this, id)} >{item.text}
+                </button>
+            );
+
+            optionList = (
+                <td>
+                    { buttonList }
                 </td>
             );
         }
@@ -67,7 +73,7 @@ class Table extends Component {
                     {
                         list.map((item, index) =>
                             <tr key={index}>
-                                { checkbox ? <td><input type="checkbox"/></td> : "" }
+                                { checkbox ? <td><input type="checkbox" value={item.id}/></td> : "" }
                                 { this.renderRow(item) }
                                 { this.renderOptions(item.id) }
                             </tr>
@@ -91,7 +97,7 @@ class Table extends Component {
 
 Table.defaultProps = {
     checkbox: false,
-    column: [],
+    columns: [],
     options: [],
     toolbar: false,
     data: {}
