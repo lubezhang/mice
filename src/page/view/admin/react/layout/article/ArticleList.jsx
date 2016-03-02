@@ -24,12 +24,38 @@ export default class ArticleList extends Component {
     }
 
     getTableColumn(){
-        return {
-            id: "编号",
-            title: "标题",
-            category_id: "类别",
-            date: "创建时间"
-        }
+        let columns = [
+            {
+                field: "title",
+                text: "标题",
+                width: "auto",
+                isShow: true,
+                isSort: false
+            },
+            {
+                field: "category_name",
+                text: "类别",
+                width: "100px",
+                isShow: true,
+                isSort: false
+            },
+            {
+                field: "status",
+                text: "状态",
+                width: "70px",
+                isShow: true,
+                isSort: false
+            },
+            {
+                field: "date",
+                text: "创建时间",
+                width: "150px",
+                isShow: true,
+                isSort: false
+            }
+        ];
+
+        return columns;
     }
 
     getOptions(){
@@ -45,7 +71,7 @@ export default class ArticleList extends Component {
     getTableToolbar(){
         return (
             <TableToolbar>
-                <a href="#/article/add" className="btn btn-info btn-xs">添加文章</a>
+                <a href="#/article/add" className="btn btn-info btn-xs">添加</a>
             </TableToolbar>
         );
     }
@@ -64,7 +90,7 @@ export default class ArticleList extends Component {
                     checkbox={true}
                     options={this.getOptions()}
                     toolbar={this.getTableToolbar()}
-                    column={this.getTableColumn()} 
+                    columns={this.getTableColumn()} 
                     searchHandle={actions.funcArticleList}
                 />
             </div>

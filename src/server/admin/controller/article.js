@@ -37,6 +37,8 @@ export default class extends Base {
     let article = {
       "title": title,
       "content": content,
+      "status": 2,
+      "category_id": 120,
       "date": date
     }
 
@@ -55,7 +57,12 @@ export default class extends Base {
   async delAction(){
     let articleId = this.post("articleId");
 
-    let affectedRows = await this.model.where({id: articleId}).delete();
+    let affectedRows = await this.model
+        .where({id: articleId})
+        .update({
+          status: 3,
+          modify_date: moment().format('YYYY-MM-DD[T]HH:mm:ss')
+        });
     if(_.isNumber(affectedRows)){
       return this.success(affectedRows);
     } else {
@@ -72,9 +79,26 @@ export default class extends Base {
     let currentPage = this.param("currentPage") || 1,
         numsPerPage = this.param("numsPerPage") || 10;
 
-    let articleList = await this.model.field("id,title,category_id,date").page(currentPage, numsPerPage).countSelect();
+    let articleList = await this.model
+        .field("`article`.`id`, title, category_id, `category`.`name` as `category_name`, status, date")
+        .join([{
+            table: 'category',
+            on: ['category_id', 'id']
+          }])
+        .where('status = 1 or status = 2')
+        .page(currentPage, numsPerPage).countSelect();
+
     articleList.data.map(article => {
-      article.date = article.date?moment(article.date).format("YYYY-MM-DD HH:mm"):""
+      article.date = article.date?moment(article.date).format("YYYY-MM-DD HH:mm"):"";
+
+      switch(article.status){
+        case 1:
+          article.status = "已发布";
+          break;
+        case 2:
+          article.status = "草稿";
+          break;
+      }
     });
     return this.success(articleList);
   }
