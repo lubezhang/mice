@@ -69,11 +69,13 @@ export default class ArticleList extends Component {
     }
 
     getTableToolbar(){
-        return (
-            <TableToolbar>
-                <a href="#/article/add" className="btn btn-info btn-xs">添加</a>
-            </TableToolbar>
-        );
+        let { actions } = this.props;
+        return [
+            {
+                text: "添加",
+                handle: actions.funcArticleDetailPage
+            }
+        ];
     }
     
     render(){

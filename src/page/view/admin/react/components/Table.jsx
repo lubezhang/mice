@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import _ from "lodash";
 
 import Pagination from './Pagination';
-// import { Pagination } from 'react-bootstrap';
+import TableToolbar from './TableToolbar';
 
 class Table extends Component {
+    renderToolbar() {
+        let buttonList = [], { toolbar } = this.props;
 
-    renderRow(rowData){
-        let row = [], { columns } = this.props;;
-        row = columns.map((item, index) =>
-            <td key={index} column={index}>{rowData[item.field]}</td>
-        );
-        return row;
+        buttonList = toolbar.map((item, index) => {
+            return (<button key={index} onClick={item.handle}>{item.text}</button>);
+        });
+
+        return buttonList;
     }
 
     // 生成列头
@@ -37,6 +38,14 @@ class Table extends Component {
                 </tr>
             </thead>
         );
+    }
+
+    renderRow(rowData){
+        let row = [], { columns } = this.props;;
+        row = columns.map((item, index) =>
+            <td key={index} column={index}>{rowData[item.field]}</td>
+        );
+        return row;
     }
 
     renderOptions(id){
@@ -66,7 +75,7 @@ class Table extends Component {
         let list = data.data || [];
         return (
             <div>
-                { toolbar }
+                { this.renderToolbar() }
                 <table className="table table-hover table-condensed">
                     { this.renderHeader() }
                     <tbody>
