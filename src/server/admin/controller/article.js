@@ -48,7 +48,39 @@ export default class extends Base {
     } else {
       return this.fail("ARTICLE_ADD_FAIL");
     }
-    
+  }
+
+  async addOrUpdateAction(){
+    let result,
+        id = this.post("id"),
+        title = this.post("title"), 
+        content = this.post("content");
+
+    let date = moment().format('YYYY-MM-DD[T]HH:mm:ss');
+    let article = {
+      "title": title,
+      "content": content,
+      "status": 2,
+      "category_id": 120,
+      "date": date
+    }
+
+    if(id) {
+      // 有id，执行更新操作
+      article.modify_date = date;
+      delete article.date;
+
+      result = await this.model.where({id: id}).update(article);
+    } else {
+      result = await this.model.add(article);
+
+    }
+
+    if(_.isNumber(result)){
+      return this.success(result);
+    } else {
+      return this.fail("ARTICLE_ADD_FAIL");
+    }
   }
 
   /**
@@ -107,9 +139,9 @@ export default class extends Base {
    * 获取文章详细内容
    * @return {[type]} [description]
    */
-  async cAction(){
-    let id = this.param("id");
-    let article = await this.model.where({"id": id}).find();
+  async detailAction(){
+    let articleId = this.param("articleId");
+    let article = await this.model.where({"id": articleId}).find();
     // article.content = markdown(article.content);
     return this.success(article).catch(function(err){
       //忽略 PREVENT_NEXT_PROCESS 错误
