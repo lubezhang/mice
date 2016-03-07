@@ -42,9 +42,20 @@ class Table extends Component {
 
     renderRow(rowData){
         let row = [], { columns } = this.props;;
-        row = columns.map((item, index) =>
-            <td key={index} column={index}>{rowData[item.field]}</td>
-        );
+        row = columns.map((item, index) => {
+            let colName;
+            if(item.func) {
+                colName = <a onClick={item.func.bind(this, rowData.id)} className="btn btn-link btn-xs">{rowData[item.field]}</a>;
+            } else {
+                colName = rowData[item.field];
+            }
+
+            return (
+                <td key={index} column={index}>
+                    { colName }
+                </td>
+            )
+        });
         return row;
     }
 
