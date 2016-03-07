@@ -61,5 +61,6 @@ function setTest() {
 }
 
 export {
-    fecthPosts
+    fecthPosts,
+    setTest
 }

@@ -5,6 +5,7 @@ import createLogger from 'redux-logger';
 import { reduxPath } from "../test.config";
 
 var actions = require(reduxPath + "/actions");
+var ACTION_TYPE = require(reduxPath + "/../common/constants").ACTION_TYPE;
 
 const middlewares = [thunkMiddleware]; // add your middlewares like `redux-thunk`
 let mockStore;
@@ -22,9 +23,9 @@ after(function() {
 
 describe('测试后台管理Actions', function() {
   it('检查ACTION_TYPE', function() {
-    should.equal("article_list", actions.ACTION_TYPE.ARTICLE_LIST);
-    should.equal("article", actions.ACTION_TYPE.ARTICLE);
-    should.equal("article_add", actions.ACTION_TYPE.ARTICLE_ADD);
+    should.equal("article_list", ACTION_TYPE.ARTICLE_LIST);
+    should.equal("article", ACTION_TYPE.ARTICLE);
+    should.equal("article_add", ACTION_TYPE.ARTICLE_ADD);
   });
 
   it('添加、删除文章列表', function(done) {
@@ -32,13 +33,13 @@ describe('测试后台管理Actions', function() {
 
     // const getState = { }; 
     // const expectedActions = [{
-    //   type: actions.ACTION_TYPE.ARTICLE_DEL,
+    //   type: ACTION_TYPE.ARTICLE_DEL,
     //   "article": {
     //     "data": 227,
     //     "errmsg": "",
     //     "errno": 0
     //   },
-    //   type: actions.ACTION_TYPE.ARTICLE_DEL
+    //   type: ACTION_TYPE.ARTICLE_DEL
     // }]; 
 
     // const store = mockStore(getState, expectedActions, done);
@@ -52,7 +53,7 @@ describe('测试后台管理Actions', function() {
     // 这个用例需要明确知道返回的数据结构，需要在测试前，情况文章的表的数据
     // const getState = { }; 
     // const expectedActions = [{
-    //   type: actions.ACTION_TYPE.ARTICLE_LIST,
+    //   type: ACTION_TYPE.ARTICLE_LIST,
     //   "articleList": {
     //     "count": 6,
     //     "currentPage": 1,
