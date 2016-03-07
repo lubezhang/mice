@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from "lodash";
+import { browserHistory } from 'react-router'
 import { Alert } from 'react-bootstrap';
 
 import { ACTION_TYPE } from "../../../common/constants";
@@ -29,6 +30,7 @@ export default class ArticleList extends Component {
                 field: "title",
                 text: "标题",
                 width: "auto",
+                func: this.showAddPage.bind(this),
                 isShow: true,
                 isSort: false
             },
@@ -68,17 +70,30 @@ export default class ArticleList extends Component {
         ];
     }
 
+    showAddPage(id){
+        let urlAdd = "/article/add", { history } = this.props;
+
+        // 与添加文章操作使用一个函数
+        // 如果调用这个函数没有传参数，第一个参数就是react自己的封装的event对象
+        // id参数的类型如果是object，就不是传递过来的文章id
+        if(typeof id !== "object") {
+            urlAdd += "/" + id;
+        }
+        history.pushState(null, urlAdd);
+    }
+
     getTableToolbar(){
         let { actions } = this.props;
         return [
             {
                 text: "添加",
-                handle: actions.funcArticleDetailPage
+                handle: this.showAddPage.bind(this)
             }
         ];
     }
     
     render(){
+        // debugger;
         let { actions, article } = this.props;
         let { articleList, detail, actionType } = article;
         

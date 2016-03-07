@@ -8,13 +8,38 @@ import { markdown } from "../../../common/markdown";
 export default class ArticleAdd extends Component {
     constructor(props) {
         super(props);
-        this.state = { markdownContent: "" };
+        this.isInit = false;    // 是否使用后台数据初始化页面
+        this.state = { 
+            title: "",
+            content: "",
+            markdownContent: "" 
+        };
     }
 
-    submitHandle(){
-        let { actions } = this.props;
-        let data = this.getFormValues();
+    componentWillMount(){
+        let { articleId, actions } = this.props;
+        if(articleId) {
+            actions.funcArticleDetail(articleId);
+        }
+    }
+
+    handleSubmit(){
+        let { actions } = this.props, 
+            data = this.getFormValues();
+
+        if(this.articleId) {
+            data.id = this.articleId;
+        } 
+            
         actions.funcArticleAdd(data);
+    }
+
+    handleInput(){
+        this.setState({
+            title: this.refs.title.getValue(),
+            content: this.refs.content.getValue(),
+            markdownContent: markdown(this.refs.content.getValue())
+        })
     }
 
     /**
@@ -26,20 +51,24 @@ export default class ArticleAdd extends Component {
         for(let key in this.refs){
             if(this.refs[key].getValue) {
                 formValues[key] = this.refs[key].getValue();
-
             }  
         }
         return formValues;
     }
 
-    /**
-     * 预览markdown样式
-     * @return {[type]} [description]
-     */
-    previewMarkdown(){
-        this.setState({
-            markdownContent: markdown(this.refs.content.getValue())
-        })
+    showDetail(article){
+        if(this.isInit === true) {
+            return;
+        }
+
+        let { detail, actionType } = article ;
+        if(actionType === ACTION_TYPE.ARTICLE_DETAIL) {
+            this.isInit = true;
+            this.articleId = detail.data.id;
+            this.setState(detail.data);
+
+            setTimeout(this.handleInput.bind(this), 500)
+        }
     }
 
     showAlert(article){
@@ -57,16 +86,16 @@ export default class ArticleAdd extends Component {
 
     render() {
         let { article } = this.props;
-        let alert = this.showAlert(article);
+        this.showDetail.bind(this, article)();
+
         return (
             <div>
             <form>
-                <Input type="text" label="标题" ref="title" placeholder="请输入文章标题" />
-                <Input type="textarea" label="文章内容" ref="content" placeholder="请输入文章内容" rows="20"/>
-                { alert }
+                <Input type="text" label="标题" ref="title" placeholder="请输入文章标题" value={this.state.title} onInput={this.handleInput.bind(this)}/>
+                <Input type="textarea" label="文章内容" onChange={this.handleInput.bind(this)} ref="content" placeholder="请输入文章内容" value={this.state.content} rows="20"/>
+                { this.showAlert(article) }
                 <ButtonToolbar>
-                    <Button bsStyle="danger" onClick={this.submitHandle.bind(this)}>保存</Button>
-                    <Button bsStyle="info" onClick={this.previewMarkdown.bind(this)}>预览</Button>
+                    <Button bsStyle="danger" onClick={this.handleSubmit.bind(this)}>保存</Button>
                     <a href='#/article' className="btn btn-default" >取消</a>
                 </ButtonToolbar>
             </form>

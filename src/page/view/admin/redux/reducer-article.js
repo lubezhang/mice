@@ -13,6 +13,7 @@ function article(article = {}, action = {}) {
     switch (action.type) {
         case ACTION_TYPE.ARTICLE_ADD:
         case ACTION_TYPE.ARTICLE_DEL:
+        case ACTION_TYPE.ARTICLE_DETAIL:
             return Object.assign({}, action.article);
         default:
             return article;

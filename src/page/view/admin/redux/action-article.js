@@ -26,3 +26,9 @@ export function funcArticleDel(articleId){
         return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_DEL, {articleId:articleId}));
     };
 }
+
+export function funcArticleDetail(articleId){
+    return (dispatch, getState) => {
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_DETAIL, {articleId:articleId}));
+    };
+}
