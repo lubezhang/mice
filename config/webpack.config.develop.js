@@ -33,17 +33,28 @@ module.exports = function (ops){
             loaders: [
                 {
                     test: /\.(jsx|js)$/,
-                    loader: 'react-hot!babel?presets[]=react,presets[]=es2015',
+                    loader: 'react-hot!babel?plugins[]=transform-decorators-legacy,presets[]=react,presets[]=es2015',
                     exclude: /node_modules/
                 },
+                // {
+                //     test: /\.(jsx|js)$/,
+                //     loaders: ['react-hot','babel'],
+                //     exclude: /node_modules/,
+                //     query: {
+                //         cacheDirectory: true,
+                //         plugins: ['transform-decorators-legacy'],
+                //         presets: ['es2015', 'stage-1', 'react']
+                        
+                //     }
+                // }, 
                 {
-                    test:/\.sass$/, 
+                    test: /\.sass$/,
                     loader: "style-loader!css-loader!sass-loader"
-                },
+                }, 
                 {
-                    test: /\.(png|jpg)$/, 
+                    test: /\.(png|jpg)$/,
                     loader: 'url-loader?limit=8192'
-                }  
+                }
             ]
         },
         plugins:[

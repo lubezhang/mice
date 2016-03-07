@@ -13,6 +13,7 @@ var routes = (
             <IndexRoute component={Article} />
             <Route path="article" component={Article}>
                 <Route path=":method" component={ArticleAdd} />
+                <Route path=":method/:articleId" component={ArticleAdd} />
             </Route>
             <Route path="tags" component={Tags} />
             <Route path="category" component={Category} />

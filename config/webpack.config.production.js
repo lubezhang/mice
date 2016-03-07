@@ -28,7 +28,7 @@ module.exports = function (ops){
             loaders: [
                 {
                     test: /\.(jsx|js)$/,
-                    loader: 'babel?presets[]=react,presets[]=es2015',
+                    loader: 'babel?plugins[]=transform-decorators-legacy,presets[]=react,presets[]=es2015',
                     exclude: /node_modules/
                 },
                 {
