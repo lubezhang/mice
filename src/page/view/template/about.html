@@ -10,15 +10,7 @@
     <div class="container">
         <%include common_left.html%>
         <div class="middle">
-        <% articleList.forEach(function(item){ %>
-            <article class="article">
-                <div class="title clearfix">
-                    <h1><a href="article/detail?id=<%=item.id%>"><%=item.title%></a></h1>
-                    <span class="create-time"><%=item.date%></span>
-                </div>
-                <div class="content"><%-item.content%></div>
-            </article>
-        <% }) %>
+        关于
         </div>
     </div>
 </body>

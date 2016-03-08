@@ -3,10 +3,11 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var srcPath = "./src/page/";
+var config = require('./config');
+var srcPath = config.srcPath;
 
 module.exports = function (ops){
-    var config = {
+    var webpackConfig = {
         // debug: true,
         entry: {
             app:[
@@ -36,17 +37,6 @@ module.exports = function (ops){
                     loader: 'react-hot!babel?plugins[]=transform-decorators-legacy,presets[]=react,presets[]=es2015',
                     exclude: /node_modules/
                 },
-                // {
-                //     test: /\.(jsx|js)$/,
-                //     loaders: ['react-hot','babel'],
-                //     exclude: /node_modules/,
-                //     query: {
-                //         cacheDirectory: true,
-                //         plugins: ['transform-decorators-legacy'],
-                //         presets: ['es2015', 'stage-1', 'react']
-                        
-                //     }
-                // }, 
                 {
                     test: /\.sass$/,
                     loader: "style-loader!css-loader!sass-loader"
@@ -59,49 +49,14 @@ module.exports = function (ops){
         },
         plugins:[
             new webpack.HotModuleReplacementPlugin(),
-            new webpack.optimize.CommonsChunkPlugin( 'common.js'),
-            new HtmlWebpackPlugin({
-                template: srcPath + "view/template/index.html",
-                filename: "../../../www/view/home/index_index.html",
-                inject: true,
-                // chunks: ['app1', "common.js"],
-                excludeChunks: ['admin'],
-                minify: {
-                    removeComments: true,
-                    // collapseWhitespace:false,
-                    keepClosingSlash: false
-                    // removeEmptyElements: true
-                }
-            }),
-            new HtmlWebpackPlugin({
-                template: srcPath + "view/template/admin.html",
-                filename: "../../../www/view/admin/index_index.html",
-                inject: true,
-                // chunks: ['app1', "common.js"],
-                excludeChunks: ['app'],
-                minify: {
-                    removeComments: false,
-                    collapseWhitespace:false,
-                    keepClosingSlash: true,
-                    removeEmptyElements: true
-                }
-            }),
-            new HtmlWebpackPlugin({
-                template: srcPath + "view/template/detail.html",
-                filename: "../../../www/view/home/article_detail.html",
-                inject: true,
-                // chunks: ['app'],
-                excludeChunks: ['admin'],
-                minify: {
-                    removeComments: false,
-                    collapseWhitespace:false,
-                    keepClosingSlash: true,
-                    removeEmptyElements: true
-                }
-            })
+            new webpack.optimize.CommonsChunkPlugin( 'common.js')
         ],
         devtool: 'inline-source-map'
     };
 
-    return config;
+    for(var i = 0, len = config.HtmlWebpackPluginList.length; i < len; i++) {
+        webpackConfig.plugins.push(new HtmlWebpackPlugin(config.HtmlWebpackPluginList[i]));
+    }
+
+    return webpackConfig;
 }();

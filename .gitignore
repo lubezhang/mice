@@ -1,5 +1,6 @@
+dist
 node_modules
 www/view/admin/index_index.html
 www/view/home/index_index.html
-www/view/home/index_detail.html
-dist
+www/view/home/article_detail.html
+www/view/home/about_index.html

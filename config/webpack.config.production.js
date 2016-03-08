@@ -5,12 +5,12 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var srcPath = "./src/page/";
+var config = require('./config');
+var srcPath = config.srcPath;
 var staticPath = path.join(__dirname, "../dist/static/");
 
 module.exports = function (ops){
-    var config = {
-        // debug: true,
+    var webpackConfig = {
         entry: {
             app: srcPath + 'view/home/index.jsx',
             admin: srcPath + 'view/admin/admin.jsx'
@@ -56,48 +56,13 @@ module.exports = function (ops){
               root: path.join(__dirname, "../"),
               verbose: true, 
               dry: false
-            }),
-            new HtmlWebpackPlugin({
-                template: srcPath + "view/template/index.html",
-                filename: "../../../www/view/home/index_index.html",
-                inject: true,
-                chunks: ['app'],
-                // excludeChunks: ['admin', "common.js"],
-                minify: {
-                    removeComments: false,
-                    // collapseWhitespace:false,
-                    keepClosingSlash: false,
-                    // removeEmptyElements: true
-                }
-            }),
-            new HtmlWebpackPlugin({
-                template: srcPath + "view/template/admin.html",
-                filename: "../../../www/view/admin/index_index.html",
-                inject: true,
-                // chunks: ['app1', "common.js"],
-                excludeChunks: ['app'],
-                minify: {
-                    removeComments: false,
-                    collapseWhitespace:false,
-                    keepClosingSlash: true,
-                    removeEmptyElements: true
-                }
-            }),
-            new HtmlWebpackPlugin({
-                template: srcPath + "view/template/detail.html",
-                filename: "../../../www/view/home/article_detail.html",
-                inject: true,
-                chunks: ['app'],
-                // excludeChunks: ['app'],
-                minify: {
-                    removeComments: false,
-                    collapseWhitespace:false,
-                    keepClosingSlash: true,
-                    removeEmptyElements: true
-                }
             })
         ]
     };
 
-    return config;
+    for(var i = 0, len = config.HtmlWebpackPluginList.length; i < len; i++) {
+        webpackConfig.plugins.push(new HtmlWebpackPlugin(config.HtmlWebpackPluginList[i]));
+    }
+
+    return webpackConfig;
 }();
