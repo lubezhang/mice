@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, ButtonToolbar, Button, Alert, Panel } from 'react-bootstrap';
+import { Input, Button, Alert } from 'react-bootstrap';
 import _ from "lodash";
 
 import { ACTION_TYPE } from "../../../common/constants";
@@ -23,7 +23,7 @@ export default class ArticleAdd extends Component {
         }
     }
 
-    handleSubmit(){
+    handleSave(){
         let { actions } = this.props, 
             data = this.getFormValues();
 
@@ -32,6 +32,16 @@ export default class ArticleAdd extends Component {
         } 
             
         actions.funcArticleAdd(data);
+    }
+
+    handlePublish() {
+        let { actions } = this.props;
+
+        if(this.articleId) {
+            
+        } 
+            
+        actions.funcArticlePublish(this.articleId);
     }
 
     handleInput(){
@@ -73,9 +83,9 @@ export default class ArticleAdd extends Component {
 
     showAlert(article){
         let alert, { detail, actionType } = article;
-        if(actionType === ACTION_TYPE.ARTICLE_ADD) {
+        if(actionType === ACTION_TYPE.ARTICLE_ADD || actionType === ACTION_TYPE.ARTICLE_PUBLISH) {
             if(detail.errno === 0) {
-                alert = <Alert>添加成功</Alert>;
+                alert = <Alert>操作成功</Alert>;
             } else {
                 // 删除失败，显示错误信息
                 alert = <Alert bsStyle="danger">{ article.errmsg }</Alert>
@@ -94,15 +104,18 @@ export default class ArticleAdd extends Component {
                 <Input type="text" label="标题" ref="title" placeholder="请输入文章标题" value={this.state.title} onInput={this.handleInput.bind(this)}/>
                 <Input type="textarea" label="文章内容" onChange={this.handleInput.bind(this)} ref="content" placeholder="请输入文章内容" value={this.state.content} rows="20"/>
                 { this.showAlert(article) }
-                <ButtonToolbar>
-                    <Button bsStyle="danger" onClick={this.handleSubmit.bind(this)}>保存</Button>
-                    <a href='#/article' className="btn btn-default" >取消</a>
-                </ButtonToolbar>
-            </form>
-            <Panel>
-                <div ref="markdownContent" dangerouslySetInnerHTML={{__html: this.state.markdownContent}}>
+                <div className="text-right">
+                    <Button onClick={this.handleSave.bind(this)}>保存草稿</Button>
+                    <Button bsStyle="danger" onClick={this.handlePublish.bind(this)}>发布文章</Button>
                 </div>
-            </Panel>
+            </form>
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h3 className="panel-title">预览</h3>
+                </div>
+                <div className="panel-body" ref="markdownContent" dangerouslySetInnerHTML={{__html: this.state.markdownContent}}>
+                </div>
+            </div>
             </div>
         );
     }

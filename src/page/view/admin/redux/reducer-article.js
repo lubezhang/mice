@@ -14,6 +14,7 @@ function article(article = {}, action = {}) {
         case ACTION_TYPE.ARTICLE_ADD:
         case ACTION_TYPE.ARTICLE_DEL:
         case ACTION_TYPE.ARTICLE_DETAIL:
+        case ACTION_TYPE.ARTICLE_PUBLISH:
             return Object.assign({}, action.article);
         default:
             return article;

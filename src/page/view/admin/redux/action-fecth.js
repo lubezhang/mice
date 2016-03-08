@@ -25,6 +25,7 @@ function receivePosts(actionType, json){
         case ACTION_TYPE.ARTICLE_ADD:
         case ACTION_TYPE.ARTICLE_DEL:
         case ACTION_TYPE.ARTICLE_DETAIL:
+        case ACTION_TYPE.ARTICLE_PUBLISH:
             state.article = json;
             break;
 

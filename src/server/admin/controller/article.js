@@ -4,7 +4,6 @@ import moment from 'moment';
 
 import Base from './base.js';
 import _ from "lodash";
-// import { markdown } from "../utils/markdown"
 
 export default class extends Base {
   init(http){
@@ -69,12 +68,30 @@ export default class extends Base {
       // 有id，执行更新操作
       article.modify_date = date;
       delete article.date;
+      delete article.status;
+      delete article.category_id;
 
       result = await this.model.where({id: id}).update(article);
     } else {
       result = await this.model.add(article);
 
     }
+
+    if(_.isNumber(result)){
+      return this.success(result);
+    } else {
+      return this.fail("ARTICLE_ADD_FAIL");
+    }
+  }
+
+  async publishAction() {
+    let articleId = this.post("articleId"),
+        article = {
+          status: 1,
+          modify_date: moment().format('YYYY-MM-DD[T]HH:mm:ss')
+        };
+
+    let result = await this.model.where({id: articleId}).update(article);
 
     if(_.isNumber(result)){
       return this.success(result);

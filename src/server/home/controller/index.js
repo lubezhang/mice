@@ -29,7 +29,8 @@ export default class extends Base {
     let articleList = await this.model.page(pageNum, 10).where({status: 1}).select();
     articleList.map(article => {
       article.content = markdown(article.content.slice(0, 300));
-      article.date = article.date?moment(article.date).format("YYYY-MM-DD HH:mm:ss"):""
+      let updateTime = article.modify_date?article.modify_date:article.date;
+      article.date = moment(updateTime).format("YYYY-MM-DD HH:mm:ss");
     });
     this.assign({
       "articleList": articleList

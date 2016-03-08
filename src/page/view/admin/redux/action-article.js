@@ -21,6 +21,12 @@ export function funcArticleAdd(article){
     };
 }
 
+export function funcArticlePublish(articleId){
+    return (dispatch, getState) => {
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_PUBLISH, {articleId:articleId}));
+    };
+}
+
 export function funcArticleDel(articleId){
     return (dispatch, getState) => {
         return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_DEL, {articleId:articleId}));

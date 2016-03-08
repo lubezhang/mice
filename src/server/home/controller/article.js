@@ -48,7 +48,8 @@ export default class extends Base {
     let article = await this.model.where({"id": id}).find();
 
     article.content = markdown(article.content);
-    article.date = moment(article.date).format("YYYY-MM-DD HH:mm:ss")
+    let updateTime = article.modify_date?article.modify_date:article.date;
+    article.date = moment(updateTime).format("YYYY-MM-DD HH:mm:ss")
 
     this.assign({
       "article": article
