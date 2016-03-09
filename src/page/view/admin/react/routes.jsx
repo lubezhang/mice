@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, Link, IndexRoute } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+// import createBrowserHistory from 'history/lib/createBrowserHistory'
 
 import App from "./App";
 
