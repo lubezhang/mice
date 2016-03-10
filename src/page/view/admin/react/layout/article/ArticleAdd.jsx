@@ -85,6 +85,7 @@ export default class ArticleAdd extends Component {
         let alert, { detail, actionType } = article;
         if(actionType === ACTION_TYPE.ARTICLE_ADD || actionType === ACTION_TYPE.ARTICLE_PUBLISH) {
             if(detail.errno === 0) {
+                this.articleId = detail.data;
                 alert = <Alert>操作成功</Alert>;
             } else {
                 // 删除失败，显示错误信息

@@ -71,13 +71,14 @@ export default class extends Base {
       delete article.status;
       delete article.category_id;
 
-      result = await this.model.where({id: id}).update(article);
+      let updatNum = await this.model.where({id: id}).update(article);
+      result = id;
     } else {
       result = await this.model.add(article);
 
     }
 
-    if(_.isNumber(result)){
+    if(_.isNumber(_.parseInt(result))){
       return this.success(result);
     } else {
       return this.fail("ARTICLE_ADD_FAIL");
