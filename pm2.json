@@ -2,7 +2,7 @@
   "apps": [{
     "name": "blog",
     "script": "www/production.js",
-    "cwd": "/opt/RRT-blog",
+    "cwd": "./",
     "max_memory_restart": "700M",
     "autorestart": true,
     "node_args": [],
