@@ -32,7 +32,7 @@ module.exports = function (ops){
             chunkFilename: '[hash].[name].bundle.js'
         },
         resolve: {
-            extensions: ['', '.js', '.jsx', '.sass'],
+            extensions: ['', '.js', '.jsx', '.scss'],
             alias: {
                 // "react":  path.join(nodeModulesPath, "react/dist/react.js"),
                 // "react-dom":  path.join(nodeModulesPath, "react-dom/dist/react-dom.js"),
@@ -68,7 +68,7 @@ module.exports = function (ops){
                     exclude: /node_modules/
                 },
                 {
-                    test:/\.sass$/, 
+                    test:/\.scss$/, 
                     // incldue: path.resolve('www/src/sass'),
                     loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader"),
                     exclude: /node_modules/

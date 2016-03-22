@@ -6,7 +6,7 @@
 // import routes from './react/routes' 
 // import store from './redux/store';
 
-require("../../sass/app.sass");
+require("../../sass/app.scss");
 // require("../../img/avatar.jpg");
 
 // render(

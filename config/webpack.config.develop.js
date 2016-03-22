@@ -28,7 +28,7 @@ module.exports = function (ops){
             chunkFilename: '[hash].[name].bundle.js'
         },
         resolve: {
-            extensions: ['', '.js', '.jsx', '.sass']
+            extensions: ['', '.js', '.jsx', '.scss']
         },
         module: {
             loaders: [
@@ -38,7 +38,7 @@ module.exports = function (ops){
                     exclude: /node_modules/
                 },
                 {
-                    test: /\.sass$/,
+                    test: /\.scss$/,
                     loader: "style-loader!css-loader!sass-loader"
                 }, 
                 {
