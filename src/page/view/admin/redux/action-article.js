@@ -21,9 +21,9 @@ export function funcArticleAdd(article){
     };
 }
 
-export function funcArticlePublish(articleId){
+export function funcArticlePublish(article){
     return (dispatch, getState) => {
-        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_PUBLISH, {articleId:articleId}));
+        return dispatch(fecthPosts(ACTION_TYPE.ARTICLE_PUBLISH, article));
     };
 }
 

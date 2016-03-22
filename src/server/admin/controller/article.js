@@ -28,6 +28,7 @@ export default class extends Base {
 
   /**
    * 添加文章
+   * 已经废弃，使用addOrUpdateAction代替
    */
   async addAction(){
     let title = this.post("title"), content = this.post("content");
@@ -50,32 +51,21 @@ export default class extends Base {
   }
 
   async addOrUpdateAction(){
-    let result,
-        id = this.post("id"),
-        title = this.post("title"), 
-        content = this.post("content");
+    let result, article = this.packRequestData(), date = moment().format('YYYY-MM-DD[T]HH:mm:ss');
 
-    let date = moment().format('YYYY-MM-DD[T]HH:mm:ss');
-    let article = {
-      "title": title,
-      "content": content,
-      "status": 2,
-      "category_id": 120,
-      "date": date
-    }
 
-    if(id) {
+    if(article.id) {
       // 有id，执行更新操作
       article.modify_date = date;
       delete article.date;
-      delete article.status;
       delete article.category_id;
 
-      let updatNum = await this.model.where({id: id}).update(article);
-      result = id;
+      let updatNum = await this.model.where({id: article.id}).update(article);
+      result = article.id;
     } else {
+      // 新增操作
+      article.status = 2;
       result = await this.model.add(article);
-
     }
 
     if(_.isNumber(_.parseInt(result))){
@@ -86,15 +76,26 @@ export default class extends Base {
   }
 
   async publishAction() {
-    let articleId = this.post("articleId"),
-        article = {
-          status: 1,
-          modify_date: moment().format('YYYY-MM-DD[T]HH:mm:ss')
-        };
+    let result, article = this.packRequestData(), date = moment().format('YYYY-MM-DD[T]HH:mm:ss');
 
-    let result = await this.model.where({id: articleId}).update(article);
+    article.content = article.draft_content;
 
-    if(_.isNumber(result)){
+    if(article.id) {
+      // 有id，执行更新操作
+      article.modify_date = date;
+      article.status = 1;
+      delete article.date;
+      delete article.category_id;
+
+      let updatNum = await this.model.where({id: article.id}).update(article);
+      result = article.id;
+    } else {
+      // 新增操作
+      article.status = 1;
+      result = await this.model.add(article);
+    }
+
+    if(_.isNumber(_.parseInt(result))){
       return this.success(result);
     } else {
       return this.fail("ARTICLE_ADD_FAIL");
@@ -168,6 +169,30 @@ export default class extends Base {
       }
       console.log(err.stack);
     });
+  }
+
+  /**
+   * 将前端提交的数据组装成json格式，返回
+   * @return {json} 返回组装好的json数据 
+   */
+  packRequestData(){
+    let id = this.post("id"),
+        title = this.post("title"), 
+        content = this.post("content");
+
+    let date = moment().format('YYYY-MM-DD[T]HH:mm:ss');
+    let article = {
+      "title": title,
+      "draft_content": content,
+      "category_id": 120,
+      "date": date
+    }
+
+    if(id) {
+      article.id = id;
+    }
+
+    return article;
   }
 
 }

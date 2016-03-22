@@ -11,7 +11,7 @@ export default class ArticleAdd extends Component {
         this.isInit = false;    // 是否使用后台数据初始化页面
         this.state = { 
             title: "",
-            content: "",
+            draft_content: "",
             markdownContent: "" 
         };
     }
@@ -35,19 +35,20 @@ export default class ArticleAdd extends Component {
     }
 
     handlePublish() {
-        let { actions } = this.props;
+        let { actions } = this.props, 
+            data = this.getFormValues();
 
         if(this.articleId) {
+            data.id = this.articleId;
+        }
             
-        } 
-            
-        actions.funcArticlePublish(this.articleId);
+        actions.funcArticlePublish(data);
     }
 
     handleInput(){
         this.setState({
             title: this.refs.title.getValue(),
-            content: this.refs.content.getValue(),
+            draft_content: this.refs.content.getValue(),
             markdownContent: markdown(this.refs.content.getValue())
         })
     }
@@ -103,7 +104,7 @@ export default class ArticleAdd extends Component {
             <div>
             <form>
                 <Input type="text" label="标题" ref="title" placeholder="请输入文章标题" value={this.state.title} onInput={this.handleInput.bind(this)}/>
-                <Input type="textarea" label="文章内容" onChange={this.handleInput.bind(this)} ref="content" placeholder="请输入文章内容" value={this.state.content} rows="20"/>
+                <Input type="textarea" label="文章内容" onChange={this.handleInput.bind(this)} ref="content" placeholder="请输入文章内容" value={this.state.draft_content} rows="20"/>
                 { this.showAlert(article) }
                 <div className="text-right">
                     <Button onClick={this.handleSave.bind(this)}>保存草稿</Button>
