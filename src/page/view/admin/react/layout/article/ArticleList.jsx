@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import _ from "lodash";
 import { browserHistory } from 'react-router'
-import { Alert } from 'react-bootstrap';
 
 import { ACTION_TYPE } from "../../../common/constants";
-import { Table, TableToolbar } from "../../components";
+import { Alert, Table, TableToolbar } from "../../components";
 
 export default class ArticleList extends Component {
 

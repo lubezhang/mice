@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Input, Button, Alert } from 'react-bootstrap';
 import _ from "lodash";
 
+import { Alert } from '../../components';
 import { ACTION_TYPE } from "../../../common/constants";
 import { markdown } from "../../../common/markdown";
 
@@ -47,9 +47,9 @@ export default class ArticleAdd extends Component {
 
     handleInput(){
         this.setState({
-            title: this.refs.title.getValue(),
-            draft_content: this.refs.content.getValue(),
-            markdownContent: markdown(this.refs.content.getValue())
+            title: this.refs.title.value,
+            draft_content: this.refs.content.value,
+            markdownContent: markdown(this.refs.content.value)
         })
     }
 
@@ -60,8 +60,8 @@ export default class ArticleAdd extends Component {
     getFormValues(){
         let formValues = [];
         for(let key in this.refs){
-            if(this.refs[key].getValue) {
-                formValues[key] = this.refs[key].getValue();
+            if(this.refs[key].value) {
+                formValues[key] = this.refs[key].value;
             }  
         }
         return formValues;
@@ -103,12 +103,18 @@ export default class ArticleAdd extends Component {
         return (
             <div>
             <form>
-                <Input type="text" label="标题" ref="title" placeholder="请输入文章标题" value={this.state.title} onInput={this.handleInput.bind(this)}/>
-                <Input type="textarea" label="文章内容" onChange={this.handleInput.bind(this)} ref="content" placeholder="请输入文章内容" value={this.state.draft_content} rows="20"/>
+                <div className='form-group'>
+                    <label className="control-label">标题</label> 
+                    <input className="form-control" ref="title" value={this.state.title} onInput={this.handleInput.bind(this)} type="text" lable="标题" placeholder="请输入文章标题"/>
+                </div>
+                <div className='form-group'>
+                    <label className="control-label">文章内容</label>
+                    <textarea className="form-control" value={this.state.draft_content} onChange={this.handleInput.bind(this)} ref="content" label="文章内容" placeholder="请输入文章内容" rows="20"></textarea>
+                </div>
                 { this.showAlert(article) }
                 <div className="text-right">
-                    <Button onClick={this.handleSave.bind(this)}>保存草稿</Button>
-                    <Button bsStyle="danger" onClick={this.handlePublish.bind(this)}>发布文章</Button>
+                    <button className="btn btn-default" onClick={this.handleSave.bind(this)}>保存草稿</button>
+                    <button className="btn btn-danger" bsStyle="danger" onClick={this.handlePublish.bind(this)}>发布文章</button>
                 </div>
             </form>
             <div className="panel panel-default">
