@@ -94,11 +94,19 @@ module.exports = function (ops){
             }),
             new ExtractTextPlugin("../css/[name]-[contenthash].css"),
             new webpack.optimize.CommonsChunkPlugin( 'common.[hash].js'),
-            new CleanWebpackPlugin(['dist/static'], {
-              root: path.join(__dirname, "../"),
-              verbose: true, 
-              dry: false
-            })
+            new CleanWebpackPlugin(
+                [
+                    'dist/static',
+                    'www/view/admin/*.html',
+                    'www/view/home/*_index.html',
+                    'www/view/home/*_detail.html'
+                ], 
+                {
+                    root: path.join(__dirname, "../"),
+                    verbose: true,
+                    dry: false
+                }
+            )
         ]
     };
 

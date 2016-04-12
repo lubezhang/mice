@@ -1,63 +1,54 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-
 var srcPath = "./src/page/";
+
 var HtmlWebpackPluginList = [
     {
-        template: srcPath + "view/template/admin.html",
-        filename: "../../../www/view/admin/index_index.html",
-        inject: true,
-        // chunks: ['app1', "common.js"],
-        excludeChunks: ['app'],
-        minify: {
-            removeComments: false,
-            collapseWhitespace:false,
-            keepClosingSlash: true,
-            removeEmptyElements: true
-        }
+        template: "admin.html",
+        filename: "admin/index_index.html",
+        excludeChunks: ['app']
     },
     {
-        template: srcPath + "view/template/index.html",
-        filename: "../../../www/view/home/index_index.html",
-        inject: true,
-        // chunks: ['app1', "common.js"],
-        excludeChunks: ['admin'],
-        minify: {
-            removeComments: true,
-            // collapseWhitespace:false,
-            keepClosingSlash: false
-            // removeEmptyElements: true
-        }
+        template: "index.html",
+        filename: "home/index_index.html",
+        excludeChunks: ['admin']
     },
     {
-        template: srcPath + "view/template/detail.html",
-        filename: "../../../www/view/home/article_detail.html",
-        inject: true,
-        // chunks: ['app'],
-        excludeChunks: ['admin'],
-        minify: {
-            removeComments: false,
-            collapseWhitespace:false,
-            keepClosingSlash: true,
-            removeEmptyElements: true
-        }
+        template: "detail.html",
+        filename: "home/article_detail.html",
+        excludeChunks: ['admin']
     },
     {
-        template: srcPath + "view/template/about.html",
-        filename: "../../../www/view/home/about_index.html",
-        inject: true,
-        // chunks: ['app'],
-        excludeChunks: ['admin'],
-        minify: {
-            removeComments: false,
-            collapseWhitespace:false,
-            keepClosingSlash: true,
-            removeEmptyElements: true
-        }
+        template: "about.html",
+        filename: "home/about_index.html",
+        excludeChunks: ['admin']
     }
 ];
+
+function genrateHtmlList(htmlConfig){
+    var configList = [], config = {};
+    for(var i = 0, len = htmlConfig.length; i < len; i++) {
+        config = htmlConfig[i];
+
+        var obj = {
+            template: srcPath + "view/template/" + config.template,
+            filename: "../../../www/view/" + config.filename,
+            excludeChunks: config.excludeChunks,
+            inject: "body",
+            minify: {
+                removeComments: false
+                // collapseWhitespace:false,
+                // keepClosingSlash: true,
+                // removeEmptyElements: true
+            }
+        };
+
+        configList.push(obj);
+    }
+
+    return configList;
+}
 
 
 module.exports = {
     srcPath: srcPath,
-    HtmlWebpackPluginList: HtmlWebpackPluginList
+    HtmlWebpackPluginList: genrateHtmlList(HtmlWebpackPluginList)
 }

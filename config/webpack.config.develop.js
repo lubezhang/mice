@@ -2,6 +2,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var config = require('./config');
 var srcPath = config.srcPath;
@@ -51,7 +52,7 @@ module.exports = function (ops){
             new webpack.HotModuleReplacementPlugin(),
             new webpack.optimize.CommonsChunkPlugin( 'common.js')
         ],
-        devtool: 'inline-source-map'
+        devtool: 'eval-source-map'
     };
 
     for(var i = 0, len = config.HtmlWebpackPluginList.length; i < len; i++) {
