@@ -4,8 +4,8 @@
   "description": ".",
   "scripts": {
     "clean": "rimraf build",
-    "build:webpack": "webpack --config ./config/webpack.config.prod.js",
-    "build:thinkjs": "babel --presets es2015-loose,stage-1 --plugins transform-runtime src/server --out-dir dist/server/ --retain-lines",
+    "build:webpack": "NODE_ENV=production webpack --config ./config/webpack.config.prod.js --progress --colors --profile",
+    "build:thinkjs": "babel --presets es2015-loose,stage-1 --plugins transform-runtime src/server --out-dir build/server/ --source-maps",
     "build": "npm run clean && npm run build:thinkjs && npm run build:webpack",
     "lint": "eslint src",
     "static": "webpack-dev-server --config ./config/webpack.config.dev.js --progress --colors --hot",
@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/lubezhang/mice",
   "devDependencies": {
+    "babel-cli": "^6.7.5",
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.2",
