@@ -1,9 +1,9 @@
 var path = require('path');
 
 var rootPath = path.resolve(__dirname, '../');
-var srcPagePath = path.resolve(rootPath, 'src');
-var srcServerPath = path.resolve(rootPath, 'src/server');
-var buildPath = path.resolve(rootPath, 'build');
+var srcPagePath = path.resolve(rootPath, 'src/page/');
+var srcServerPath = path.resolve(rootPath, 'src/server/');
+var buildPath = path.resolve(rootPath, 'build/');
 
 var HtmlWebpackPluginList = [
     {
@@ -34,15 +34,15 @@ function genrateHtmlList(htmlConfig){
         config = htmlConfig[i];
 
         var obj = {
-            template: srcPagePath + "view/template/" + config.template,
+            template: srcPagePath + "/view/template/" + config.template,
             filename: "../../../www/view/" + config.filename,
             excludeChunks: config.excludeChunks,
-            inject: "body",
+            inject: true,
             minify: {
-                removeComments: false
+                removeComments: true,
                 // collapseWhitespace:false,
-                // keepClosingSlash: true,
-                // removeEmptyElements: true
+                // keepClosingSlash: true
+                removeEmptyElements: false
             }
         };
 
