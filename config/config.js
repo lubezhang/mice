@@ -1,4 +1,9 @@
-var srcPath = "./src/page/";
+var path = require('path');
+
+var rootPath = path.resolve(__dirname, '../');
+var srcPagePath = path.resolve(rootPath, 'src');
+var srcServerPath = path.resolve(rootPath, 'src/server');
+var buildPath = path.resolve(rootPath, 'build');
 
 var HtmlWebpackPluginList = [
     {
@@ -29,7 +34,7 @@ function genrateHtmlList(htmlConfig){
         config = htmlConfig[i];
 
         var obj = {
-            template: srcPath + "view/template/" + config.template,
+            template: srcPagePath + "view/template/" + config.template,
             filename: "../../../www/view/" + config.filename,
             excludeChunks: config.excludeChunks,
             inject: "body",
@@ -49,6 +54,9 @@ function genrateHtmlList(htmlConfig){
 
 
 module.exports = {
-    srcPath: srcPath,
+    rootPath: rootPath,
+    srcPagePath: srcPagePath,
+    srcServerPath: srcServerPath,
+    buildPath: buildPath,
     HtmlWebpackPluginList: genrateHtmlList(HtmlWebpackPluginList)
 }
