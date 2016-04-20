@@ -2,7 +2,7 @@ var thinkjs = require('thinkjs');
 var path = require('path');
 
 var rootPath = path.dirname(__dirname);
-var distPath = "/dist";
+var distPath = "/build";
 var staticPath = rootPath + distPath;
 
 var instance = new thinkjs({
