@@ -6,9 +6,10 @@
     "clean": "rimraf build",
     "build:webpack": "NODE_ENV=production webpack --config ./config/webpack.config.prod.js --progress --colors --profile",
     "build:thinkjs": "babel --presets es2015-loose,stage-1 --plugins transform-runtime src/server --out-dir build/server/ --source-maps",
+    "build:dev": "NODE_ENV=development webpack --config ./config/webpack.config.dev.js --progress --colors --profile",
     "build": "npm run clean && npm run build:thinkjs && npm run build:webpack",
     "lint": "eslint src",
-    "static": "webpack-dev-server --config ./config/webpack.config.dev.js --progress --colors --hot",
+    "static": "npm run build:dev && webpack-dev-server --config ./config/webpack.config.dev.js --progress --colors --hot",
     "start": "node www/development.js"
   },
   "repository": {
