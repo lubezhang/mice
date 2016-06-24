@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { NavBar } from "./index"
 
 export default class Header extends Component {
 
-    render() {
+    renderOldNav(){
         return (
             <Navbar>
                 <Navbar.Header>
@@ -24,5 +25,43 @@ export default class Header extends Component {
                 </Nav>
             </Navbar>
         );
+    }
+
+    renderNavBar(){
+        let navData = [
+            {
+                "name": "首页",
+                "href": ""
+            },
+            {
+                "name": "内容管理",
+                "href": "",
+                "child": [
+                    {
+                        "name": "文章管理",
+                        "href": ""
+                    },
+                    {
+                        "name": "分类管理",
+                        "href": ""
+                    }
+                ]
+            },
+            {
+                "name": "权限管理",
+                "href": ""
+            }
+        ];
+        return (
+            <NavBar navData={navData}/>
+        );
+    }
+
+    render() {
+        return (
+            <div>
+            { this.renderOldNav() }
+            </div>
+        )
     }
 }

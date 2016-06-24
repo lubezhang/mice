@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import routes from './react/routes'
 import store from './redux/store';
 
+require("../../sass/admin.scss");
+
 render(
     <Provider store={ store() }>
         {routes}
