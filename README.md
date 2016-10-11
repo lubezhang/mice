@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/lubezhang/RRT-blog.svg?branch=master)](https://travis-ci.org/lubezhang/RRT-blog)
+[![Build Status](https://travis-ci.org/lubezhang/mice.svg?branch=master)](https://travis-ci.org/lubezhang/mice)
 
 ## Mice 
 一个使用 React+Redux+thinkjs 的简单blog系统。
