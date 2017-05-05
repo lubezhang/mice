@@ -1,5 +1,5 @@
-build
-node_modules
+/build/
+/node_modules/
 www/view/admin/index_index.html
 www/view/home/index_index.html
 www/view/home/article_detail.html

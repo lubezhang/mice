@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var config = require("./config");
+var config = require('./config');
 
 var webpackConfig = {
     entry: {
@@ -12,7 +12,7 @@ var webpackConfig = {
     output: {
         path: path.resolve(config.buildPath, 'static/view'),
         filename: '[name].bundle.js',
-        publicPath: "http://127.0.0.1:3000/build/static/view/",
+        publicPath: 'http://127.0.0.1:3000/build/static/view/',
         chunkFilename: '[hash].[name].bundle.js'
     },
     devtool: 'eval-source-map',
@@ -35,7 +35,7 @@ var webpackConfig = {
             },
             {
                 test: /\.scss$/,
-                loader: "style-loader!css-loader!sass-loader"
+                loader: 'style-loader!css-loader!sass-loader'
             }, 
             {
                 test: /\.(png|jpg)$/,
